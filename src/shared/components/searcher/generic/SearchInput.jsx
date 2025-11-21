@@ -1,0 +1,18 @@
+export const SearchInput = ({ value, onChange, onSubmitSearch, onKeyDown}) => {
+    return (
+        <form onSubmit={onSubmitSearch} className="search-input-container">
+            <img src="src/assets/img/glass-icon.svg" className="search-icon"/>
+            <input 
+                type="search"
+                className="search-input"
+                placeholder="Buscar"
+                name="q"
+                value={value}
+                onChange={onChange}
+                onKeyDown={onKeyDown}
+                autoComplete="off"
+                spellCheck="false"
+            />
+        </form>
+    );
+}

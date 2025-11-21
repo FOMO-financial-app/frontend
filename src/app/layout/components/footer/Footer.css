@@ -1,0 +1,99 @@
+footer {
+    background-color: #333;
+    color: white;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+    flex-wrap: wrap;
+    height: 60px;
+}
+
+.Disclaimer,
+.Atributions,
+.networks {
+    flex: 1;
+    min-width: 250px;
+}
+
+.Disclaimer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.Disclaimer img {
+    width: 40px;
+    height: 40px;
+}
+
+.Disclaimer p {
+    margin: 0;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.Atributions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.Atributions p {
+    margin: 0;
+    text-align: center;
+}
+
+.Atributions a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.Atributions a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.Disclaimer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.networks h3 {
+    margin: 0 0 10px 0;
+    text-align: right;
+}
+
+.Disclaimer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.network-item img {
+    width: 20px;
+    height: 20px;
+}
+
+.network-item a {
+    color: white;
+    text-decoration: none;
+}
+
+.network-item a:hover {
+    text-decoration: underline;
+}
+
+.networks p {
+    margin: 20px 0 0 0;
+    text-align: right;
+    font-size: 14px;
+    color: #ccc;
+}
