@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react"
-import { SearchInput, SearchDropdown } from "./generic"
+import { SearchInput, GenericTable } from "./generic"
 import { StockResultRow } from "./StockResultRow";
 import { useNavigate } from 'react-router-dom';
 import "./StockSearcher.css"
@@ -7,58 +7,66 @@ import "./StockSearcher.css"
 //TestList. Fetching list and context is not implemented yet.
 const useListContext = () => {
     const initialList = [
-        { Símbolo: 'AAPL', Nombre: 'Apple' },
-        { Símbolo: 'MELI', Nombre: 'Mercado Libre' },
-        { Símbolo: 'NVDA', Nombre: 'Nvidia' },
-        { Símbolo: 'META', Nombre: 'Meta' },
+        { symbol: 'AAPL', name: 'Apple' },
+        { symbol: 'MELI', name: 'Mercado Libre' },
+        { symbol: 'NVDA', name: 'Nvidia' },
+        { symbol: 'META', name: 'Meta' },
     ];
 
     return initialList;
 };
 
 export const StockSearcher = ({ searchPath }) => {
-    const [ query, setQuery] = useState("");
-    const [ qresult , setqResult] = useState([]);
-    const [ isFocused, setIsFocused] = useState(false);
-    const [highlightedIndex, setHighlightedIndex] = useState(-1);
+    const [ query, setQuery ] = useState("");
+    const [ qresult , setqResult ] = useState([]);
+    const [ isFocused, setIsFocused ] = useState(false);
+    const [ highlightedIndex, setHighlightedIndex ] = useState(-1);
     const searcherRef = useRef(null);
+    const inputRef = useRef(null);
     const navigate = useNavigate();
 
     const list = useListContext();
 
-    let headers = [];
-
-    if (list && list.length > 0) {
-        headers = Object.keys(list[0]);
-    }
+    const headers = [
+        { key: "symbol", label: "Símbolo" },
+        { key: "name", label: "Nombre" }
+    ];
 
     const handleChange = (e) => {
         const newQuery = e.target.value;
         setQuery(newQuery);
         setHighlightedIndex(-1);
+        setIsFocused(true)
     }
 
+    //Search the user's input and redirect to a specific stock page.
     const handleSearchSubmit = (e) => {
         e.preventDefault();
 
         if (highlightedIndex >= 0) {
-            const selected = qresult[highlightedIndex].Símbolo;
-            navigate(`${searchPath}/${selected}`);
+            const selected = qresult[highlightedIndex].symbol;
+            navigate(`${searchPath}/${selected}`);            
             return;
         }
 
         if (qresult.length > 0) {
-            const firstmatch = qresult[0].Símbolo;
+            const firstmatch = qresult[0].symbol;
             navigate(`${searchPath}/${firstmatch}`);
             return;
         }
 
-        const url = `${searchPath}/${query}`; 
-        navigate(url);
+        const url = `*`;
+        navigate(url);        
     };
     
-    const handleFocus = () => setIsFocused(true);
+    const handleFocus = (e) => {
+        const isHeaderRow = e.target.closest(".table-header");
+        if (isHeaderRow) return;
+        setIsFocused(true);
+        inputRef.current?.focus();
+    }
 
+    //Prevents the dropdown from closing when the user switches windows or browser tab.
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (searcherRef.current && !searcherRef.current.contains(event.target)) {
@@ -74,6 +82,7 @@ export const StockSearcher = ({ searchPath }) => {
         };
     }, []);
 
+    //Filter the items in the list that match the query.
     useEffect (() => {
         if (query.trim() === "") {
             setqResult(list);
@@ -81,8 +90,8 @@ export const StockSearcher = ({ searchPath }) => {
         };
 
         const filtered = list.filter(item => 
-            item.Símbolo.toLowerCase().startsWith(query.toLowerCase()) ||
-            item.Nombre.toLowerCase().startsWith(query.toLowerCase())
+            item.symbol.toLowerCase().startsWith(query.toLowerCase()) ||
+            item.name.toLowerCase().startsWith(query.toLowerCase())
         );
 
         setqResult(filtered);
@@ -101,26 +110,42 @@ export const StockSearcher = ({ searchPath }) => {
         
         if (e.key === "Enter") {
             if (highlightedIndex >= 0) {
-                setQuery(qresult[highlightedIndex].Símbolo);
+                setQuery(qresult[highlightedIndex].symbol);                
                 setIsFocused(false);
-            }
+            }            
+
+            setIsFocused(false);
         }
+    };
+
+    const handleRowClick = (symbol) => {
+        setQuery(symbol);
+        setIsFocused(false);
+        inputRef.current?.focus();
+        navigate(`${searchPath}/${symbol}`);        
+    };
+
+    const handleRowHover = (index) => {
+        setHighlightedIndex(index);
     };
 
     return (
         <div ref={searcherRef} onClick={handleFocus} className="stock-search-container">
-            <SearchInput 
+            <SearchInput
+                inputRef={inputRef} 
                 value={query}
                 onChange={handleChange}
                 onSubmitSearch={handleSearchSubmit}
                 onKeyDown={handleKeyDown}
             />
             {isFocused && qresult.length > 0 && (
-                <SearchDropdown
-                    results={qresult}
+                <GenericTable
+                    list={qresult}
                     RenderRow={StockResultRow}
                     headers={headers}
                     highlightedIndex={highlightedIndex}
+                    onRowClick={handleRowClick}
+                    onRowHover={handleRowHover}
                 />
             )}            
         </div>

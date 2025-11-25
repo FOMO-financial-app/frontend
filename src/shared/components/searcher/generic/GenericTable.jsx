@@ -1,5 +1,5 @@
-export const SearchDropdown = ({ results, RenderRow, headers, highlightedIndex }) => {
-    if (!results || results.length === 0) {
+export const GenericTable = ({ list, RenderRow, headers, highlightedIndex, onRowClick, onRowHover }) => {
+    if (!list || list.length === 0) {
         return null; 
     }
 
@@ -7,20 +7,20 @@ export const SearchDropdown = ({ results, RenderRow, headers, highlightedIndex }
         <table className="search-dropdown-table">
             {headers && headers.length > 0 && (
                 <thead>
-                    <tr>
-                        {headers.map((header, index) => (
-                            <th key={index}>{header}</th>
-                        ))}
+                    <tr className="table-header">
+                        {headers.map(h => <th key={h.key}>{h.label}</th>)}
                     </tr>
                 </thead>
             )}
             <tbody>
-                {results.map((item, index) => (
-                    <RenderRow 
+                {list.map((item, index) => (
+                    <RenderRow
                         key={index}
                         item={item}
                         index={index}
                         highlightedIndex={highlightedIndex}
+                        onRowClick={onRowClick}
+                        onRowHover={onRowHover}
                     />
                 ))}
             </tbody>

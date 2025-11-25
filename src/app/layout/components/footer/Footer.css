@@ -1,99 +1,100 @@
 footer {
     background-color: #333;
     color: white;
-    padding: 40px 20px;
+    padding: 25px 20px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     gap: 30px;
     flex-wrap: wrap;
-    height: 60px;
 }
 
-.Disclaimer,
-.Atributions,
+.disclaimer,
+.atributions,
 .networks {
     flex: 1;
     min-width: 250px;
 }
 
-.Disclaimer {
+.disclaimer {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     gap: 15px;
 }
 
-.Disclaimer img {
+.disclaimer img {
     width: 40px;
     height: 40px;
 }
 
-.Disclaimer p {
+.disclaimer p {
     margin: 0;
     line-height: 1.5;
     text-align: left;
+    font-size: 14px;
 }
 
-.Atributions {
+.atributions {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 4px;
 }
 
-.Atributions p {
+.atributions p {
     margin: 0;
     text-align: center;
 }
 
-.Atributions a {
-    color: #ccc;
+.atributions a {
+    color: white;
     text-decoration: none;
     font-size: 14px;
 }
 
-.Atributions a:hover {
+.atributions a:hover {
     color: white;
     text-decoration: underline;
 }
 
-.Disclaimer {
+.networks {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 15px;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .networks h3 {
+    width: 100%;
     margin: 0 0 10px 0;
     text-align: right;
 }
 
-.Disclaimer {
+.network-items-container {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+    flex-direction: column;
     gap: 15px;
+    align-items: flex-start;
+}
+
+.network-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .network-item img {
     width: 20px;
     height: 20px;
+    vertical-align: middle;
 }
 
 .network-item a {
     color: white;
     text-decoration: none;
+    line-height: 1;
 }
 
 .network-item a:hover {
     text-decoration: underline;
-}
-
-.networks p {
-    margin: 20px 0 0 0;
-    text-align: right;
-    font-size: 14px;
-    color: #ccc;
 }
