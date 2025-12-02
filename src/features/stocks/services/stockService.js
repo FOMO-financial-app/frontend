@@ -1,7 +1,8 @@
-import { api } from "../api";
+import { api } from "../../../shared";
 
 export const stockService = {
-    all: () => api.get("/api/Stocks"),
+    find: (query) => api.get(`/api/Stocks/find/${query}`),
+    page: (page, pagesize) => api.get(`/api/Stocks/${page}/${pagesize}`),
     details: (symbol) => api.get(`/api/Stocks/timeseries/${symbol}`),
     sma: (symbol, period) => api.get(`/api/Stocks/timeseries/${symbol}/sma/${period}`),
     bollinger: (symbol, period, k) => api.get(`/api/Stocks/timeseries/${symbol}/bollinger/${period}/${k}`),

@@ -1,4 +1,4 @@
-import { StockSearcher } from "../../../../shared/components"
+import { StockSearcher } from "../../../../shared"
 import "./Header.css"
 import { Link } from 'react-router-dom'
 

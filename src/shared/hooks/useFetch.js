@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { api } from "../services/api";
+import { api } from "../";
 
 export function useFetch(url){
     if (typeof url !== 'string' || url.trim() === '') {
