@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react"
-import { SearchInput } from "./generic"
+import { SearchInput } from "./SearchInput"
 import { useNavigate } from 'react-router-dom';
 import "./StockSearcher.css"
 import { VirtualizedStockList } from "./VirtualizedStockList";
