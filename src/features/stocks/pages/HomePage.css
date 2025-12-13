@@ -1,7 +1,7 @@
 .home-page-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px 20px;
 }
 
 .main-stock-table {
@@ -57,8 +57,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
-    padding: 10px 0;
+    margin-top: 10px;
+    padding: 5px 0;
     font-size: 14px;
 }
 
@@ -107,4 +107,16 @@
     padding-left: 5px;
     padding-right: 5px;
     margin: 0 4px;
+}
+
+.full-width-widget-wrapper {
+    width: 100vw; 
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 5px;
+}
+
+.my-tradingview-ticker-container { 
+    width: 100%;
 }

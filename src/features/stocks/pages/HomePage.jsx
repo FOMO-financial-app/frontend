@@ -4,6 +4,7 @@ import { stockService } from "../services/stockService";
 import { StockTable } from "../components/paginatedtable/StockTable";
 import "./HomePage.css"
 import { PaginationControls } from "../components/paginatedtable/PaginationControl";
+import TradingViewWidget from "../components/TradingViewWidget";
 
 export const HomePage = () => {
     const [ highlightedIndex, setHighlightedIndex ] = useState(-1);
@@ -11,7 +12,7 @@ export const HomePage = () => {
     const [ currentPage, setCurrentPage ] = useState(1);
     const [ totalPages, setTotalPages ] = useState(1);
     const navigate = useNavigate();          
-    const totalItems = 15;
+    const totalItems = 14;
     const searchPath = "stock-details"
 
     const fetchPageData = (page) => {
@@ -45,6 +46,10 @@ export const HomePage = () => {
     }
 
     return (
+        <>
+        <div className="full-width-widget-wrapper">
+            <TradingViewWidget/>
+        </div>
         <div className="home-page-container">
             <StockTable
                 list={list}
@@ -58,5 +63,6 @@ export const HomePage = () => {
                 onPageChange={handlePageChange}
             />
         </div>
+        </>
     )
 }
