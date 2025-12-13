@@ -1,20 +1,10 @@
 import { useEffect, useState, useRef } from "react"
-import { SearchInput, GenericTable } from "./generic"
-import { StockResultRow } from "./StockResultRow";
+import { SearchInput } from "./SearchInput"
 import { useNavigate } from 'react-router-dom';
 import "./StockSearcher.css"
-
-//TestList. Fetching list and context is not implemented yet.
-const useListContext = () => {
-    const initialList = [
-        { symbol: 'AAPL', name: 'Apple' },
-        { symbol: 'MELI', name: 'Mercado Libre' },
-        { symbol: 'NVDA', name: 'Nvidia' },
-        { symbol: 'META', name: 'Meta' },
-    ];
-
-    return initialList;
-};
+import { VirtualizedStockList } from "./VirtualizedStockList";
+import { useDebounce } from "../../index";
+import { stockService } from "../../../features"
 
 export const StockSearcher = ({ searchPath }) => {
     const [ query, setQuery ] = useState("");
@@ -23,14 +13,9 @@ export const StockSearcher = ({ searchPath }) => {
     const [ highlightedIndex, setHighlightedIndex ] = useState(-1);
     const searcherRef = useRef(null);
     const inputRef = useRef(null);
+    const virtualListRef = useRef(null);
     const navigate = useNavigate();
-
-    const list = useListContext();
-
-    const headers = [
-        { key: "symbol", label: "Símbolo" },
-        { key: "name", label: "Nombre" }
-    ];
+    const debouncedQuery = useDebounce(query, 500);
 
     const handleChange = (e) => {
         const newQuery = e.target.value;
@@ -60,8 +45,9 @@ export const StockSearcher = ({ searchPath }) => {
     };
     
     const handleFocus = (e) => {
-        const isHeaderRow = e.target.closest(".table-header");
-        if (isHeaderRow) return;
+        const clickedHeader = e.target.closest(".virtual-header");
+        const clickedRow = e.target.closest(".virtual-row");
+        if (clickedHeader || clickedRow) return;
         setIsFocused(true);
         inputRef.current?.focus();
     }
@@ -82,30 +68,41 @@ export const StockSearcher = ({ searchPath }) => {
         };
     }, []);
 
-    //Filter the items in the list that match the query.
+    //Filter the items in the backend that match the query.
     useEffect (() => {
-        if (query.trim() === "") {
-            setqResult(list);
+        if (debouncedQuery.trim() === "") {
+            setqResult([]);
             return;
         };
 
-        const filtered = list.filter(item => 
-            item.symbol.toLowerCase().startsWith(query.toLowerCase()) ||
-            item.name.toLowerCase().startsWith(query.toLowerCase())
-        );
+        stockService.find(debouncedQuery)
+            .then(result => setqResult(result.data))
+            .catch(error => {
+                setqResult([]);
+                console.error("Error fetching stocks:", error);
+            });
 
-        setqResult(filtered);
-    }, [query]);
+    }, [debouncedQuery]);
 
     const handleKeyDown = (e) => {
         if (!isFocused || qresult.length === 0) return;
         
+        let newIndex = highlightedIndex;
+
         if (e.key === "ArrowDown") {
-            setHighlightedIndex(i => Math.min(i + 1, qresult.length - 1));
+            e.preventDefault();
+            newIndex = Math.min(highlightedIndex + 1, qresult.length - 1);
         }
 
         if (e.key === "ArrowUp") {
-            setHighlightedIndex(i => Math.max(i - 1, 0));
+            e.preventDefault();
+            newIndex = Math.max(highlightedIndex - 1, 0);
+        }
+
+        if (newIndex !== highlightedIndex) {
+            setHighlightedIndex(newIndex);
+            virtualListRef.current?.scrollToIndex(newIndex);
+            return;
         }
         
         if (e.key === "Enter") {
@@ -122,7 +119,9 @@ export const StockSearcher = ({ searchPath }) => {
         setQuery(symbol);
         setIsFocused(false);
         inputRef.current?.focus();
-        navigate(`${searchPath}/${symbol}`);        
+        setTimeout(() => {
+            navigate(`${searchPath}/${symbol}`);
+        }, 50);
     };
 
     const handleRowHover = (index) => {
@@ -139,14 +138,15 @@ export const StockSearcher = ({ searchPath }) => {
                 onKeyDown={handleKeyDown}
             />
             {isFocused && qresult.length > 0 && (
-                <GenericTable
+                <div className="search-dropdown-list">
+                <VirtualizedStockList
+                    ref={virtualListRef}
                     list={qresult}
-                    RenderRow={StockResultRow}
-                    headers={headers}
                     highlightedIndex={highlightedIndex}
                     onRowClick={handleRowClick}
                     onRowHover={handleRowHover}
                 />
+                </div>
             )}            
         </div>
     );

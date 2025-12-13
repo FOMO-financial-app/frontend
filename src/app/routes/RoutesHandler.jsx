@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
-import { HomePage, BoardPage, UserProfilePage, StockDetailsPage } from '../../features/index.js'
-import { InvalidRoutePage } from '../../shared/pages/InvalidRoutePage.jsx'
+import { HomePage, BoardPage, UserProfilePage, StockDetailsPage } from '../../features'
+import { InvalidRoutePage } from '../../shared'
 import { MainLayout } from '../layout/MainLayout.jsx'
 
 export const RoutesHandler = () => {
