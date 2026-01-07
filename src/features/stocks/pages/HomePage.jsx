@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { stockService } from "../services/stockService";
-import { StockTable } from "../components/paginatedtable/StockTable";
-import "./HomePage.css"
-import { PaginationControls } from "../components/paginatedtable/PaginationControl";
+import { stockService } from "../services";
+import { StockTable, PaginationControls } from "../components";
 import TradingViewWidget from "../components/TradingViewWidget";
+import "./HomePage.css"
 
 export const HomePage = () => {
     const [ highlightedIndex, setHighlightedIndex ] = useState(-1);
