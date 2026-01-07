@@ -12,9 +12,8 @@
   "dependencies": {
     "@tanstack/react-virtual": "^3.13.12",
     "axios": "^1.13.2",
-    "lightweight-charts": "^5.0.9",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
     "react-router-dom": "^7.9.6"
   },
   "devDependencies": {
