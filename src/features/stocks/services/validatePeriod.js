@@ -1,11 +1,11 @@
-export const validatePeriod = (minValue, period) => {
-    if (!minValue == Number || (!period == Number)) {
+export const validatePeriod = (minValue, maxValue, period) => {
+    if (!minValue == Number || !maxValue == Number || !period == Number) {
         return false;
     }
-    if (period < 0 || minValue < 0) {
+    if (period < 0 || maxValue < 0 || minValue < 0) {
         return false;
     }
-    if (period < minValue) {
+    if (period < minValue || period > maxValue || minValue > maxValue) {
         return false;
     }
     return true;

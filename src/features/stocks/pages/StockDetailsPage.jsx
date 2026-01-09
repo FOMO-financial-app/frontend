@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
-import { stockService, validatePeriod } from "../services"
-import { mapToCandleStick, mapMainChannel, mapSingleValue, mapBands } from "../models";
-import { MainChart, ChartOptions } from "../components";
+import { stockService } from "../services"
+import { mapToCandleStick, mapMainChannel, mapSingleValue, mapBands, mapStochasticD, mapStochasticK } from "../models";
+import { MainChart, ChartOptions, RsiChart, StochasticChart } from "../components";
 import { useParams } from "react-router-dom";
 import "./StocksDetailsPage.css"
 
@@ -12,20 +12,33 @@ export const StockDetailsPage = () => {
     const [ sma, setSma ] = useState([]);
     const [ envelopes, setEnvelopes ] = useState([]);
     const [ bollinger, setBollinger ] = useState([]);
+    const [ stochasticK, setStochasticK ] = useState([]);
+    const [ stochasticD, setStochasticD ] = useState([]);
+    const [ rsi, setRsi ] = useState([]);
+    const [ wrsi, setWrsi ] = useState([]);
     const [ showMainChannel, setShowMainChannel ] = useState(false);
     const [ showSma, setShowSma ] = useState(false);
     const [ showEnvelopes, setShowEnvelopes ] = useState(false);
     const [ showBollinger, setShowBollinger ] = useState(false);
+    const [ showRsi, setShowRsi ] = useState(false);
+    const [ showWrsi, setShowWrsi ] = useState(false);
+    const [ showStochastic, setShowStochastic ] = useState(false);
     const [ smaPeriod, setSmaPeriod ] = useState(20);    
-    const [ envPeriod, setEnvPeriod ] = useState(20);    
-    const [ bollingerPeriod, setBollingerPeriod ] = useState(20);    
+    const [ envPeriod, setEnvPeriod ] = useState(20);
+    const [ envPercentage, setEnvPercentage ] = useState(10);     
+    const [ bollingerPeriod, setBollingerPeriod ] = useState(20);
+    const [ bollingerK, setBollingerK ] = useState(2);    
     const [ kPeriod, setKPeriod ] = useState(20);    
-    const [ dPeriod, setDPeriod ] = useState(3);    
+    const [ dPeriod, setDPeriod ] = useState(3);   
+    const [ rsiPeriod, setRsiPeriod ] = useState(9);  
+    const [ wrsiPeriod, setWrsiPeriod ] = useState(9);  
     const dMin = 1;
     const smaMin = 2;
     const envMin = 5;
     const bollingerMin = 5;
     const kMin = 5;
+    const maxPeriod = 100;
+    const maxDPeriod = 30;
 
     const fetchDetailsData = (symbol) => {
         stockService.details(symbol)
@@ -52,7 +65,7 @@ export const StockDetailsPage = () => {
             })
             .catch(error => {
                 setSma([]);
-                console.error("Error fetching stock details:", error);
+                console.error("Error fetching SMA details:", error);
             });
     };
 
@@ -65,7 +78,7 @@ export const StockDetailsPage = () => {
             })
             .catch(error => {
                 setEnvelopes([]);
-                console.error("Error fetching stock details:", error);
+                console.error("Error fetching Envelopes Bands details:", error);
             });
     };
 
@@ -78,7 +91,49 @@ export const StockDetailsPage = () => {
             })
             .catch(error => {
                 setBollinger([]);
-                console.error("Error fetching stock details:", error);
+                console.error("Error fetching Bollinger Bands details:", error);
+            });
+    };
+
+    const fetchStochasticData = (symbol, kperiod, dperiod) => {        
+        stockService.stochastic(symbol, kperiod, dperiod)
+            .then(result => {
+                let data = result.data;
+                let kvalue = mapStochasticK(data)
+                let dvalue = mapStochasticD(data)
+                setStochasticK(kvalue);
+                setStochasticD(dvalue);
+            })
+            .catch(error => {
+                setStochasticK([]);
+                setStochasticD([]);
+                console.error("Error fetching Stochastic details:", error);
+            });
+    };
+
+    const fetchRsiData = (symbol, period) => {
+        stockService.rsi(symbol, period)
+            .then(result => {
+                let data = result.data;
+                let values = mapSingleValue(data);
+                setRsi(values);
+            })
+            .catch(error => {
+                setRsi([]);
+                console.error("Error fetching RSI details:", error);
+            });
+    };
+
+    const fetchWrsiData = (symbol, period) => {
+        stockService.wrsi(symbol, period)
+            .then(result => {
+                let data = result.data;
+                let values = mapSingleValue(data);
+                setWrsi(values);
+            })
+            .catch(error => {
+                setWrsi([]);
+                console.error("Error fetching WRSI details:", error);
             });
     };
 
@@ -93,40 +148,75 @@ export const StockDetailsPage = () => {
         setShowMainChannel(!showMainChannel);
     };
 
-    const handleSmaCheck = (period) => {
-        if (!validatePeriod(smaMin, period)){
-            setShowSma(prev => !prev);
+    const handleSmaCheck = (period, nextShow) => {
+        if (!nextShow) {
+            setShowSma(false);
             return;
         }
-        if (sma.length == 0 || (period != smaPeriod && !showSma)) {
+        if (sma.length == 0 || period != smaPeriod) {
             setSmaPeriod(period);
             fetchSmaData(query, period);
-        };
-        setShowSma(prev => !prev);
+        }
+        setShowSma(true);
     };
 
-    const handleEnvelopesCheck = (period, percentage) => {
-        if (!validatePeriod(envMin, period)){
-            setShowEnvelopes(prev => !prev);
+    const handleEnvelopesCheck = (period, percentage, nextShow) => {
+        if (!nextShow) {
+            setShowEnvelopes(false);
             return;
         }
-        if (envelopes.length == 0 || (period != envPeriod && !showEnvelopes)) {
+        if (envelopes.length == 0 || period != envPeriod || percentage != envPercentage) {
             setEnvPeriod(period);
             fetchEnvelopesData(query, period, percentage);
         };
-        setShowEnvelopes(prev => !prev);
+        setShowEnvelopes(true);
     };
 
-    const handleBollingerCheck = (period, k) => {
-        if (!validatePeriod(bollingerMin, period)){
-            setShowBollinger(prev => !prev);
+    const handleBollingerCheck = (period, k, nextShow) => {
+        if (!nextShow){
+            setShowBollinger(false);
             return;
         }
-        if (bollinger.length == 0 || (period != bollingerPeriod && !showBollinger)) {
+        if (bollinger.length == 0 || period != bollingerPeriod || k != bollingerK) {
             setBollingerPeriod(period);
             fetchBollingerData(query, period, k);
         };
-        setShowBollinger(prev => !prev);
+        setShowBollinger(true);
+    };
+
+    const handleStochasticCheck = (kperiod, dperiod, nextShow) => {
+        if (!nextShow) {
+            setShowStochastic(false);
+            return;
+        }
+        if (stochasticK.length == 0 || kperiod != kPeriod || dperiod != dPeriod) {
+            setKPeriod(kperiod);
+            setDPeriod(dperiod);
+            fetchStochasticData(query, kperiod, dperiod);
+        }
+        setShowStochastic(true);
+    };
+
+    const handleRsiCheck = (period) => {
+        if (rsi.length == 0 || (period != rsiPeriod && !showRsi)) {
+            setRsiPeriod(period);
+            fetchRsiData(query, period);
+        };
+        setShowRsi(!showRsi);
+        if (showWrsi == true) {
+            setShowWrsi(false);
+        }        
+    };
+
+    const handleWrsiCheck = (period) => {
+        if (wrsi.length == 0 || (period != wrsiPeriod && !showWrsi)) {
+            setWrsiPeriod(period);
+            fetchWrsiData(query, period);
+        };
+        setShowWrsi(!showWrsi);
+        if (showRsi == true) {
+            setShowRsi(false);
+        }        
     };
 
     if (!query) {
@@ -142,18 +232,22 @@ return (
                 handleSmaCheck={handleSmaCheck}
                 handleEnvelopesCheck={handleEnvelopesCheck}
                 handleBollingerCheck={handleBollingerCheck}
-                handleStochasticCheck={handleBollingerCheck}
-                handleRSICheck={handleSmaCheck}
-                handleSRSICheck={handleSmaCheck}
+                handleStochasticCheck={handleStochasticCheck}
+                handleRSICheck={handleRsiCheck}
+                handleWRSICheck={handleWrsiCheck}
                 showSma={showSma}
-                smaMin={smaMin}
                 showEnvelopes={showEnvelopes}
-                envMin={envMin}
                 showBollinger={showBollinger}
+                showStochastic={showStochastic}
+                showRsi={showRsi}
+                showWrsi={showWrsi}
+                smaMin={smaMin}                
+                envMin={envMin}                
                 bollingerMin={bollingerMin}
-                showStochastic={showBollinger}
                 kMin={kMin}
                 dMin={dMin}
+                maxPeriod={maxPeriod}
+                maxDPeriod={maxDPeriod}
             />
         </aside>            
 
@@ -169,6 +263,26 @@ return (
                 bollingerData={bollinger}
                 showBollinger={showBollinger}
             />
+
+            {(showRsi || showWrsi) && (
+                <div className="indicator-chart-container">
+                    <RsiChart
+                        rsiData={rsi}
+                        wrsiData={wrsi}
+                        showRsi={showRsi}
+                        showWrsi={showWrsi}
+                    />
+                </div>
+            )}
+            
+            {showStochastic && (
+                <div className="indicator-chart-container">
+                    <StochasticChart
+                        stochasticKData={stochasticK}
+                        stochasticDData={stochasticD}
+                    />
+                </div>
+            )}            
         </main>
 
         <aside className="info-panel">

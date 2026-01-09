@@ -9,5 +9,5 @@ export const stockService = {
     bollinger: (symbol, period, k) => api.get(`/api/Indicators/${symbol}/bollinger/${period}/${k}`),
     stochastic: (symbol, period, smaperiod) => api.get(`/api/Indicators/${symbol}/stochastic/${period}/${smaperiod}`),
     rsi: (symbol, period) => api.get(`/api/Indicators/${symbol}/rsi/${period}`),
-    srsi: (symbol, period) => api.get(`/api/Indicators/${symbol}/srsi/${period}`)
+    wrsi: (symbol, period) => api.get(`/api/Indicators/${symbol}/wrsi/${period}`)
 };

@@ -1,95 +1,79 @@
 import { useState } from "react";
 import "./ChartOptions.css";
-import { validatePeriod, validateStochastic } from "../../services";
+import { validatePeriod } from "../../services";
 
 export const ChartOptions = ({ handleMainChannelCheck, handleSmaCheck, handleEnvelopesCheck, handleBollingerCheck, handleStochasticCheck,
-    handleRSICheck, handleSRSICheck, showSma, smaMin, showEnvelopes, envMin, showBollinger, bollingerMin, showStochastic, kMin, dMin }) => {
-
+    handleRSICheck, handleWRSICheck, showSma, showEnvelopes, showBollinger, showStochastic, showRsi, showWrsi, smaMin,  envMin,  bollingerMin,
+      kMin, dMin, maxPeriod, maxDPeriod }) => {
     const [ smaPeriod, setSmaPeriod ] = useState(20);
     const [ envelopesPeriod, setEnvelopesPeriod ] = useState(20);
     const [ envPercentage, setEnvPercentage ] = useState(10);
     const [ bollingerPeriod, setBollingerPeriod ] = useState(20);
     const [ bollingerK, setBollingerK ] = useState(2);
-    const [ stochasticPeriod, setStochasticPeriod ] = useState(20);
-    const [ stochasticSmaPeriod, setStochasticSmaPeriod ] = useState(3);
+    const [ stochasticKPeriod, setStochasticKPeriod ] = useState(20);
+    const [ stochasticDPeriod, setStochasticDPeriod ] = useState(3);
     const [ rsiPeriod, setRsiPeriod ] = useState(9);
-    const [ srsiPeriod, setSrsiPeriod ] = useState(9);    
+    const [ wrsiPeriod, setSrsiPeriod ] = useState(9);    
     const [ smaError, setSmaError ] = useState(false);
     const [ envError, setEnvError ] = useState(false);
     const [ bollingerError, setBollingerError ] = useState(false);
     const [ stochasticError, setStochasticError ] = useState(false);
-
-    const checkSma = (period) => {
-        if (!validatePeriod(smaMin, period) && !showSma) {
+    
+    const handleSmaToggle = (checked) => {
+        if (!checked) {
+            setSmaError(false);
+            handleSmaCheck(smaPeriod, false);
+            return;
+        }
+        if (!validatePeriod(smaMin, maxPeriod, smaPeriod)) {
             setSmaError(true);
             return;
         }
         setSmaError(false);
-        handleSmaCheck(period);
-    }
-
-    const handleSmaToggle = (checked) => {
-    if (!checked) {
-        checkSma(smaPeriod);
-        setSmaError(false);
-        return;
-    }
-    checkSma(smaPeriod);
+        handleSmaCheck(smaPeriod, true);
     };
 
-    const checkEnvelopes = (period, percentage) => {
-        if (!validatePeriod(envMin, period) && !showEnvelopes) {
+    const handleEnvelopesToggle = (checked) => {
+        if (!checked) {        
+            setEnvError(false);
+            handleEnvelopesCheck(envelopesPeriod, envPercentage, false);
+            return;
+        }
+        if (!validatePeriod(envMin, maxPeriod, envelopesPeriod)) {
             setEnvError(true);
             return;
         }
         setEnvError(false);
-        handleEnvelopesCheck(period, percentage);
-    }
-
-    const handleEnvelopesToggle = (checked) => {
-    if (!checked) {
-        checkEnvelopes(envelopesPeriod, envPercentage);
-        setEnvError(false);
-        return;
-    }
-    checkEnvelopes(envelopesPeriod, envPercentage);
+        handleEnvelopesCheck(envelopesPeriod, envPercentage, true);
     };
 
-    const checkBollinger = (period, k) => {
-        if (!validatePeriod(bollingerMin, period) && !showBollinger) {
+    const handleBollingerToggle = (checked) => {
+        if (!checked) {
+            setBollingerError(false);
+            handleBollingerCheck(bollingerPeriod, bollingerK, false);
+            return;
+        }
+        if (!validatePeriod(bollingerMin, maxPeriod, bollingerPeriod)) {
             setBollingerError(true);
             return;
         }
         setBollingerError(false);
-        handleBollingerCheck(period, k);
-    }
-
-    const handleBollingerToggle = (checked) => {
-    if (!checked) {
-        checkBollinger(bollingerPeriod, bollingerK);
-        setBollingerError(false);
-        return;
-    }
-    checkBollinger(bollingerPeriod, bollingerK);
+        handleBollingerCheck(bollingerPeriod, bollingerK, true);
     };
 
-    const checkStochastic = (kPeriod, dPeriod) => {
-        if (!validateStochastic(kMin, kPeriod, dMin, dPeriod)) {
-            setStochasticError(true)
+    const handleStochasticToggle = (checked) => {
+        if (!checked) {
+            setStochasticError(false);
+            handleStochasticCheck(stochasticKPeriod, stochasticDPeriod, false);
+            return;
+        }
+        if (!validatePeriod(kMin,maxPeriod,stochasticKPeriod) || (!validatePeriod(dMin,maxDPeriod,stochasticDPeriod)) 
+            || stochasticDPeriod > stochasticKPeriod) {
+            setStochasticError(true);
             return;
         }
         setStochasticError(false);
-        handleStochasticCheck(kPeriod, dPeriod);
-    };
-
-    // DISABLED: Stochastic chart and data fetching are not implemented.
-    const handleStochasticToggle = (checked) => {
-    if (!checked) {
-        checkStochastic(kPeriod, dPeriod);
-        setStochasticError(false);
-        return;
-    }
-    checkStochastic(kPeriod, dPeriod);
+        handleStochasticCheck(stochasticKPeriod, stochasticDPeriod, true);
     };
 
     return (
@@ -136,7 +120,7 @@ export const ChartOptions = ({ handleMainChannelCheck, handleSmaCheck, handleEnv
                     </span>
                     <label className="switch">
                         <input type="checkbox" checked={showEnvelopes}
-                            onChange={() => handleEnvelopesToggle(envelopesPeriod, envPercentage)}
+                            onChange={(e) => handleEnvelopesToggle(e.target.checked)}
                         />
                         <span className="slider-round"/>
                     </label>
@@ -166,7 +150,7 @@ export const ChartOptions = ({ handleMainChannelCheck, handleSmaCheck, handleEnv
                     </span>
                     <label className="switch">
                         <input type="checkbox" checked={showBollinger}
-                            onChange={() => handleBollingerToggle(bollingerPeriod, bollingerK)}
+                            onChange={(e) => handleBollingerToggle(e.target.checked)}
                         />
                         <span className="slider-round"/>
                     </label>
@@ -190,9 +174,14 @@ export const ChartOptions = ({ handleMainChannelCheck, handleSmaCheck, handleEnv
 
             <div className="option-container">
                 <div className={`option-header ${stochasticError ? 'has-error' : ''}`}>
-                    <span className="option-title">Oscilador Estocastico</span>                    
+                    <span className="option-title">
+                        Oscilador Estocástico
+                        <span className="color-dot" style={{ backgroundColor: '#1437aaff'}}/>
+                        <span className="color-dot" style={{ backgroundColor: '#8d1111ff'}}/>
+                    </span>
                     <label className="switch">
-                        <input type="checkbox"
+                        <input type="checkbox" checked={showStochastic}
+                            onChange={(e) => handleStochasticToggle(e.target.checked)}
                         />
                         <span className="slider-round"/>
                     </label>
@@ -200,12 +189,12 @@ export const ChartOptions = ({ handleMainChannelCheck, handleSmaCheck, handleEnv
                 <div className="option-params">
                     <div className="param-row">
                         <label>Periodo (K):</label>
-                        <input type="number" value={stochasticPeriod} onChange={(e) => setStochasticPeriod(e.target.value)}
+                        <input type="number" value={stochasticKPeriod} onChange={(e) => setStochasticKPeriod(e.target.value)}
                          className="input-small" />
                     </div>
                     <div className="param-row">
                         <label>Periodo (D):</label>
-                        <input type="number" value={stochasticSmaPeriod} onChange={(e) => setStochasticSmaPeriod(e.target.value)}
+                        <input type="number" value={stochasticDPeriod} onChange={(e) => setStochasticDPeriod(e.target.value)}
                          className="input-small" />
                     </div>
                 </div>
@@ -213,9 +202,13 @@ export const ChartOptions = ({ handleMainChannelCheck, handleSmaCheck, handleEnv
 
             <div className="option-container">
                 <div className="option-header">
-                    <span className="option-title">RSI</span>                    
+                    <span className="option-title">
+                        RSI
+                        <span className="color-dot" style={{ backgroundColor: '#29f84bff'}}/>
+                    </span>                   
                     <label className="switch">
-                        <input type="checkbox" onChange={() => handleRSICheck(rsiPeriod)}/>
+                        <input type="checkbox" checked={showRsi}
+                            onChange={() => handleRSICheck(rsiPeriod)}/>
                         <span className="slider-round"/>
                     </label>
                 </div>
@@ -233,18 +226,22 @@ export const ChartOptions = ({ handleMainChannelCheck, handleSmaCheck, handleEnv
 
             <div className="option-container">
                 <div className="option-header">
-                    <span className="option-title">RSI Suavizado</span>
+                    <span className="option-title">
+                        RSI de Wilder
+                        <span className="color-dot" style={{ backgroundColor: '#29cff8ff'}}/>
+                    </span>
                     <label className="switch">
-                        <input type="checkbox" onChange={() => handleSRSICheck(srsiPeriod)}/>
+                        <input type="checkbox" checked={showWrsi}
+                            onChange={() => handleWRSICheck(wrsiPeriod)}/>
                         <span className="slider-round"/>
                     </label>
                 </div>
                 <div className="option-params">
                     <div className="param-row">
-                        <label>Periodo: <b>{srsiPeriod}</b></label>
+                        <label>Periodo: <b>{wrsiPeriod}</b></label>
                         <input 
                             type="range" min="7" max="14" step="1"
-                            value={srsiPeriod} 
+                            value={wrsiPeriod} 
                             onChange={(e) => setSrsiPeriod(e.target.value)} 
                         />
                     </div>

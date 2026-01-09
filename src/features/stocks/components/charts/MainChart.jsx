@@ -65,7 +65,7 @@ export const MainChart = ({
         return () => chart.remove();
     }, []);
 
-    // Sync stock data to candlesticks.
+    // Sync stock data with candlesticks.
     useEffect(() => {
         if (candleStickRef.current && data.length > 0) {
             candleStickRef.current.setData(data);

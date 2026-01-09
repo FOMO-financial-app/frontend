@@ -20,7 +20,20 @@
 
 .main-chart-container {
     flex: 1;
-    min-height: 400px;
+    min-height: 300px;
     width: 100%;
     position: relative;
+}
+
+.indicator-chart-container {
+    height: 120px;
+    min-height: 120px;
+    width: 100%;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.indicator-chart {
+    width: 100%;
+    height: 100%;
 }
