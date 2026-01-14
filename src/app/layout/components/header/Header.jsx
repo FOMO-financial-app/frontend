@@ -1,14 +1,16 @@
 import { StockSearcher } from "../../../../shared"
-import "./Header.css"
 import { Link } from 'react-router-dom'
+import fomoicon from "../../../../assets/img/fomo-icon.svg"
+import rocketicon from "../../../../assets/img/rocket-icon.svg"
+import "./Header.css"
 
 export const Header = () => {
     return (
         <header>
             <nav>
                 <Link to={'/'} className="logo">
-                    <img src="src/assets/img/fomo-icon.svg" className="fomo-icon" alt="Fomo"/>
-                    <img src="src/assets/img/rocket-icon.svg" className="logo-icon" alt="Logo"/>
+                    <img src={fomoicon} className="fomo-icon" alt="Fomo"/>
+                    <img src={rocketicon} className="logo-icon" alt="Logo"/>
                 </Link>
                 <div className="nav">
                     <StockSearcher searchPath="stock-details"></StockSearcher>

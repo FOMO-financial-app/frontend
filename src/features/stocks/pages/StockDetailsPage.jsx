@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { stockService } from "../services"
 import { mapToCandleStick, mapMainChannel, mapSingleValue, mapBands, mapStochasticD, mapStochasticK } from "../models";
-import { MainChart, ChartOptions, RsiChart, StochasticChart } from "../components";
+import { MainChart, ChartOptions, RsiChart, StochasticChart, ChartInfoDrawer } from "../components";
 import { useParams } from "react-router-dom";
 import "./StocksDetailsPage.css"
 
@@ -32,6 +32,8 @@ export const StockDetailsPage = () => {
     const [ dPeriod, setDPeriod ] = useState(3);   
     const [ rsiPeriod, setRsiPeriod ] = useState(9);  
     const [ wrsiPeriod, setWrsiPeriod ] = useState(9);  
+    const [infoOpen, setInfoOpen] = useState(false);
+    const [activeInfo, setActiveInfo] = useState(null);
     const dMin = 1;
     const smaMin = 2;
     const envMin = 5;
@@ -223,74 +225,75 @@ export const StockDetailsPage = () => {
         return <div>Error: Símbolo no encontrado en la URL.</div>;
     };
 
-return (
-    <div className="details-page-container">
-        <aside className="options-container">
-            <h1 className="details-page-title">Detalles de {query}</h1>
-            <ChartOptions 
-                handleMainChannelCheck={handleMainChannelCheck}
-                handleSmaCheck={handleSmaCheck}
-                handleEnvelopesCheck={handleEnvelopesCheck}
-                handleBollingerCheck={handleBollingerCheck}
-                handleStochasticCheck={handleStochasticCheck}
-                handleRSICheck={handleRsiCheck}
-                handleWRSICheck={handleWrsiCheck}
-                showSma={showSma}
-                showEnvelopes={showEnvelopes}
-                showBollinger={showBollinger}
-                showStochastic={showStochastic}
-                showRsi={showRsi}
-                showWrsi={showWrsi}
-                smaMin={smaMin}                
-                envMin={envMin}                
-                bollingerMin={bollingerMin}
-                kMin={kMin}
-                dMin={dMin}
-                maxPeriod={maxPeriod}
-                maxDPeriod={maxDPeriod}
-            />
-        </aside>            
+    return (
+        <div className="details-page-container">
+            <aside className="options-container">
+                <h1 className="details-page-title">Detalles de {query}</h1>
+                <ChartOptions 
+                    handleMainChannelCheck={handleMainChannelCheck}
+                    handleSmaCheck={handleSmaCheck}
+                    handleEnvelopesCheck={handleEnvelopesCheck}
+                    handleBollingerCheck={handleBollingerCheck}
+                    handleStochasticCheck={handleStochasticCheck}
+                    handleRSICheck={handleRsiCheck}
+                    handleWRSICheck={handleWrsiCheck}
+                    showSma={showSma}
+                    showEnvelopes={showEnvelopes}
+                    showBollinger={showBollinger}
+                    showStochastic={showStochastic}
+                    showRsi={showRsi}
+                    showWrsi={showWrsi}
+                    smaMin={smaMin}                
+                    envMin={envMin}                
+                    bollingerMin={bollingerMin}
+                    kMin={kMin}
+                    dMin={dMin}
+                    maxPeriod={maxPeriod}
+                    maxDPeriod={maxDPeriod}
+                    setActiveInfo={setActiveInfo}
+                    setInfoOpen={setInfoOpen}
+                />
+            </aside>            
 
-        <main className="chart-main-content">
-            <MainChart
-                data={timeSeries}
-                mainChannelData={mainChannel}
-                showMainChannel={showMainChannel}
-                smaData={sma}
-                showSma={showSma}
-                envelopesData={envelopes}
-                showEnvelopes={showEnvelopes}
-                bollingerData={bollinger}
-                showBollinger={showBollinger}
-            />
+            <main className="chart-main-content">
+                <MainChart
+                    data={timeSeries}
+                    mainChannelData={mainChannel}
+                    showMainChannel={showMainChannel}
+                    smaData={sma}
+                    showSma={showSma}
+                    envelopesData={envelopes}
+                    showEnvelopes={showEnvelopes}
+                    bollingerData={bollinger}
+                    showBollinger={showBollinger}
+                />
 
-            {(showRsi || showWrsi) && (
-                <div className="indicator-chart-container">
-                    <RsiChart
-                        rsiData={rsi}
-                        wrsiData={wrsi}
-                        showRsi={showRsi}
-                        showWrsi={showWrsi}
-                    />
-                </div>
-            )}
+                {(showRsi || showWrsi) && (
+                    <div className="indicator-chart-container">
+                        <RsiChart
+                            rsiData={rsi}
+                            wrsiData={wrsi}
+                            showRsi={showRsi}
+                            showWrsi={showWrsi}
+                        />
+                    </div>
+                )}
             
-            {showStochastic && (
-                <div className="indicator-chart-container">
-                    <StochasticChart
-                        stochasticKData={stochasticK}
-                        stochasticDData={stochasticD}
-                    />
-                </div>
-            )}            
-        </main>
+                {showStochastic && (
+                    <div className="indicator-chart-container">
+                        <StochasticChart
+                            stochasticKData={stochasticK}
+                            stochasticDData={stochasticD}
+                        />
+                    </div>
+                )}            
+            </main>
 
-        <aside className="info-panel">
-            <div className="info-card">
-                <h3>Interpretación</h3>
-                <p>Info sobre el indicador seleccionado...</p>
-            </div>
-        </aside>
-    </div>
-);
+            <ChartInfoDrawer
+                open={infoOpen}
+                activeInfo={activeInfo}
+                onClose={() => setInfoOpen(false)}
+            />
+        </div>
+    );
 }
