@@ -1,0 +1,134 @@
+.chart-options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.option-container {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.option-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.option-params {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.85rem;
+}
+
+.param-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.switch {
+    position: relative;
+    display: inline-block !important;
+    width: 40px !important;
+    height: 20px !important;
+    min-width: 40px;
+    min-height: 20px;
+    flex-shrink: 0;
+}
+
+.switch input {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+.slider-round {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider-round:before {
+    position: absolute;
+    content: "";
+    height: 14px; width: 14px;
+    left: 3px; bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider-round { background-color: #26a69a; }
+input:checked + .slider-round:before { transform: translateX(20px); }
+
+.input-small {
+    width: 60px;
+    padding: 4px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.option-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.color-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+    transform: translateY(1px);
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+}
+
+.option-header.has-error .switch .slider-round {
+    background-color: #ef5350 !important;
+    animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+.option-header.has-error .switch .slider-round:before {
+    transform: translateX(0) !important;
+}
+
+.option-header.has-error {
+    border-left: 3px solid #ef5350;
+    padding-left: 8px;
+}
+
+.error-text {
+    color: #ef5350;
+    font-size: 0.75rem;
+    margin-top: 4px;
+}
+
+@keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+.info-btn {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.info-icon {
+    width: 14px;
+    height: 14px;
+    transform: translateY(1px);
+}
