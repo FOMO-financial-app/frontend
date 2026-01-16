@@ -1,2 +1,7 @@
 export * from "./stockService.js"
 export * from "./validatePeriod.js"
+export * from "./handleIndicatorToggle.js"
+export * from "./fetchIndicatorData.js"
+export * from "./fetchBandsData.js"
+export * from "./rsiCheck.js"
+export * from "./bandsCheck.js"
