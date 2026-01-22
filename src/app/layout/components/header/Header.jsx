@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import fomoicon from "../../../../assets/img/fomo-icon.svg"
 import rocketicon from "../../../../assets/img/rocket-icon.svg"
 import "./Header.css"
+import { UserMenu } from "./UserMenu"
 
 export const Header = () => {
     return (
@@ -14,11 +15,9 @@ export const Header = () => {
                 </Link>
                 <div className="nav">
                     <StockSearcher searchPath="stock-details"></StockSearcher>
-                    <Link to={'/Resultados'}>Resultados</Link>
+                    <Link to={'/resultados'}>Resultados</Link>
                 </div>
-                <Link to={'/Perfil'} className="user-profile">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg" className="user-icon" alt="Perfil"/>
-                </Link>
+                <UserMenu/>
             </nav>
         </header>
     )
