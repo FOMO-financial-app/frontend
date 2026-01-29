@@ -1,0 +1,121 @@
+.result-card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    color: #333;
+    border-radius: 10px;
+    overflow: hidden;
+    min-height: 90px;
+}
+
+
+.result-card-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    padding: 8px 16px;
+    opacity: 0.9;
+    background: #f8f8f8;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+.trade-dates {
+    display: flex;
+    gap: 32px;
+}
+
+
+.date-block {
+    display: flex;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+
+.date {
+    color: #555;
+}
+
+
+.price {
+    color: #000;
+    font-weight: 600;
+}
+
+.user {
+    color: #000;
+    font-weight: 600;
+}
+
+.result-card-body {
+    display: grid;
+    grid-template-columns: 140px 300px 300px 1fr;
+    align-items: center;
+    padding: 15px 24px;
+    background: #ffffff;
+}
+
+.symbol-column .symbol {
+    font-size: 28px;
+    font-weight: 800;
+    vertical-align: middle;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+}
+
+.profit {
+    letter-spacing: -0.2px;
+}
+
+.profit.positive {
+    color: #15803d;
+}
+
+.profit.negative {
+    color: #b91c1c;
+}
+
+.profit.neutral {
+    color: #555;
+}
+
+.metric-column {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+}
+
+.metric-label {
+    font-size: 15px;
+    font-weight: 500;
+    color: #555;
+    line-height: 1.1;
+}
+
+.metric-column span:not(.metric-label):not(.volume-value) {
+    font-size: 23px;
+    font-weight: 600;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.volume-value {
+    font-size: 20px;
+    font-weight: 500;
+    color: #444;
+}
+
+.tags-column {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+}
+
+.tags-column div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-end;
+}

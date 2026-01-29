@@ -1,3 +1,5 @@
+import "./PaginationControl.css"
+
 export const PaginationControls = ({ currentPage, totalPages, onPageChange }) => {
     const maxPages = 7;
 
