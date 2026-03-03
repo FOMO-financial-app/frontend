@@ -8,7 +8,7 @@ export const BoardPage = () => {
     const [ totalPages, setTotalPages ] = useState(1);          
 
     useEffect (() => {
-        let results = [{
+        const results = [{
         symbol: "AA",
         entryPrice: "11",
         exitPrice: "11,5",

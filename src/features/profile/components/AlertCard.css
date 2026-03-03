@@ -1,19 +1,65 @@
 .alert-card {
+    position: relative;
     background: #ffffff;
     border: 1px solid #ddd;
     border-radius: 12px;
-    padding: 16px 18px;
+    padding: 20px 18px;
     width: 260px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 14px;
 }
 
 .alert-card-title {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 600;
     color: #111;
     text-align: center;
+    margin-top: 10px;
+}
+
+.alert-edit-icon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: 0.2s ease;
+}
+
+.alert-check-icon {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: 0.2s ease;
+}
+
+.alert-cancel-icon {
+    position: absolute;
+    top: 12px;
+    right: 40px;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: 0.2s ease;
+}
+
+.alert-edit-icon:hover,
+.check-icon:hover,
+.cancel-icon:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.alert-edit-icon,
+.alert-cancel-icon,
+.alert-cancel-icon {
+    object-fit: contain;
 }
 
 .alert-grid {

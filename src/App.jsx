@@ -1,12 +1,16 @@
 import './App.css'
-import { RoutesHandler } from './app/routes/RoutesHandler.jsx'
+import { useAuthApi } from './shared/'
+import { SyncUser } from "./app/SyncUser.jsx"
+import { RoutesHandler } from './app/routes';
 
 function App() {
-  return (
-  <>
-    <RoutesHandler></RoutesHandler>
-  </>
-  )
-}
+    const authApiReady = useAuthApi();
+    return (
+        <>
+            {authApiReady && <SyncUser />}
+            <RoutesHandler/>
+        </>
+    );
+};
 
 export default App

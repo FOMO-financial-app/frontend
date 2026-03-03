@@ -31,28 +31,6 @@
     border-bottom: 1px solid #eee;
 }
 
-
-.info-btn {
-    background: none;
-    border: none;
-    padding: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.info-icon {
-    width: 16px;
-    height: 16px;
-    object-fit: contain;
-    opacity: 0.7;
-}
-
-.info-btn:hover .info-icon {
-    opacity: 1;
-}
-
 .drawer-content {
     padding: 8px 10px;
     overflow-y: auto;
