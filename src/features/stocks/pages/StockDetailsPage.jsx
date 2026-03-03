@@ -38,10 +38,10 @@ export const StockDetailsPage = () => {
     const fetchDetailsData = (symbol) => {
         stockService.details(symbol)
             .then(result => {
-                let data = result.data;
-                let values = mapToCandleStick(data.values);
+                const data = result.data;
+                const values = mapToCandleStick(data.values);
                 setTimeSeries(values);
-                let channel = mapMainChannel(data);
+                const channel = mapMainChannel(data);
                 setMainChannel(channel);
             })
             .catch(error => {
@@ -79,9 +79,9 @@ export const StockDetailsPage = () => {
     const fetchStochasticData = (symbol, kperiod, dperiod) => {        
         stockService.stochastic(symbol, kperiod, dperiod)
             .then(result => {
-                let data = result.data;
-                let kvalue = mapStochasticK(data)
-                let dvalue = mapStochasticD(data)
+                const data = result.data;
+                const kvalue = mapStochasticK(data)
+                const dvalue = mapStochasticD(data)
                 setStochasticK(kvalue);
                 setStochasticD(dvalue);
             })

@@ -1,12 +1,12 @@
 import { useEffect, useState, useRef } from "react"
-import { SearchInput } from "./SearchInput"
 import { useNavigate } from 'react-router-dom';
-import "./StockSearcher.css"
-import { VirtualizedStockList } from "./VirtualizedStockList";
-import { useDebounce } from "../../index";
+import { useDebounce } from "../../";
 import { stockService } from "../../../features"
+import { VirtualizedStockList } from "./VirtualizedStockList";
+import { SearchInput } from "./SearchInput"
+import "./StockSearcher.css"
 
-export const StockSearcher = ({ searchPath }) => {
+export const StockSearcher = ({ searchPath, initialValue, onSelect }) => {
     const [ query, setQuery ] = useState("");
     const [ qresult , setqResult ] = useState([]);
     const [ isFocused, setIsFocused ] = useState(false);
@@ -16,6 +16,15 @@ export const StockSearcher = ({ searchPath }) => {
     const virtualListRef = useRef(null);
     const navigate = useNavigate();
     const debouncedQuery = useDebounce(query, 500);
+
+    useEffect(() => {
+        if (initialValue && onSelect) {
+            setQuery(initialValue);
+        }
+        else {
+            return;
+        }
+    }, [initialValue]);
 
     const handleChange = (e) => {
         const newQuery = e.target.value;
@@ -30,18 +39,31 @@ export const StockSearcher = ({ searchPath }) => {
 
         if (highlightedIndex >= 0) {
             const selected = qresult[highlightedIndex].symbol;
-            navigate(`${searchPath}/${selected}`);            
+            if (onSelect) {
+                onSelect(selected)
+            } else {
+                navigate(`${searchPath}/${selected}`);
+            }
             return;
         }
 
         if (qresult.length > 0) {
             const firstmatch = qresult[0].symbol;
-            navigate(`${searchPath}/${firstmatch}`);
+            if (onSelect) {
+                onSelect(firstmatch)
+            } else {
+                navigate(`${searchPath}/${firstmatch}`);
+            }
+            return;
+        }
+
+        if (initialValue && onSelect) {
+            onSelect(initialValue);
             return;
         }
 
         const url = `*`;
-        navigate(url);        
+        navigate(url);             
     };
     
     const handleFocus = (e) => {
@@ -87,7 +109,7 @@ export const StockSearcher = ({ searchPath }) => {
     const handleKeyDown = (e) => {
         if (!isFocused || qresult.length === 0) return;
         
-        let newIndex = highlightedIndex;
+        const newIndex = highlightedIndex;
 
         if (e.key === "ArrowDown") {
             e.preventDefault();
@@ -119,6 +141,12 @@ export const StockSearcher = ({ searchPath }) => {
         setQuery(symbol);
         setIsFocused(false);
         inputRef.current?.focus();
+
+        if (onSelect) {
+            onSelect(symbol);
+            return;
+        }
+
         setTimeout(() => {
             navigate(`${searchPath}/${symbol}`);
         }, 50);

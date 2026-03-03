@@ -25,7 +25,7 @@ export const Footer = () => {
                         href="https://www.flaticon.es/iconos-gratis/error" 
                         target="_blank"
                         rel="noopener noreferrer"
-                        title="error iconos"
+                        title="error icon"
                     >
                         Error iconos creados por Gregor Cresnar - Flaticon
                     </a>
@@ -35,7 +35,7 @@ export const Footer = () => {
                         href="https://www.flaticon.es/iconos-gratis/astronave"
                         target="_blank"
                         rel="noopener noreferrer" 
-                        title="astronave iconos"
+                        title="spaceship icon"
                     >
                         Astronave iconos creados por Freepik - Flaticon
                     </a>
@@ -45,7 +45,7 @@ export const Footer = () => {
                         href="https://www.flaticon.com/free-icons/linkedin"
                         target="_blank"
                         rel="noopener noreferrer" 
-                        title="linkedin icons"
+                        title="linkedin icon"
                     >
                         Linkedin icons created by riajulislam - Flaticon
                     </a>
@@ -55,11 +55,21 @@ export const Footer = () => {
                         href="https://www.flaticon.com/free-icons/github"
                         target="_blank"
                         rel="noopener noreferrer" 
-                        title="github icons"
+                        title="github icon"
                     >
                         Github icons created by riajulislam - Flaticon
                     </a>
                 </p>
+                <p>
+                    <a 
+                        href="https://icons8.com/icon/TtUw5gQy0zXu/edit-pencil"
+                        target="_blank"
+                        rel="noopener noreferrer" 
+                        title="edit icon"
+                    >
+                        Edit Pencil icon by Icons8 - Icons8
+                    </a>
+                </p>                
             </div>
 
             <div className="networks">

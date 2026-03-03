@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import { HomePage, BoardPage, UserProfilePage, StockDetailsPage } from '../../features'
 import { InvalidRoutePage } from '../../shared'
-import { MainLayout } from '../layout/MainLayout.jsx'
+import { MainLayout } from '../layout/'
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 export const RoutesHandler = () => {

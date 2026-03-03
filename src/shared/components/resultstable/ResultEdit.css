@@ -1,0 +1,183 @@
+.drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.re-drawer {
+    width: 900px;
+    max-width: 95vw;
+    animation: reSlideUp 0.3s ease-out;
+}
+
+.re-card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    color: #333;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.re-header {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 16px;
+    background: #f8f8f8;
+    border-bottom: 1px solid #ddd;
+    gap: 6px;
+}
+
+.re-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.re-trade-dates {
+    display: flex;
+    gap: 40px;
+}
+
+.re-date-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.re-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: #000;
+    text-transform: uppercase;
+    margin-left: 6px;
+}
+
+.re-date-block {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.re-body {
+    display: grid;
+    grid-template-columns: 220px 160px 1fr;
+    align-items: center;
+    padding: 15px 24px;
+    background: #ffffff;
+    gap: 24px;
+}
+
+.re-column {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.re-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 12px 16px;
+    border-top: 1px solid #ddd;
+    background: #f8f8f8;
+}
+
+.re-input-money-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.re-input-money-wrapper::before {
+    content: "$";
+    position: absolute;
+    left: 10px;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+.re-input-money-wrapper .re-input {
+    padding-left: 22px;
+}
+
+.re-input {
+    border: 1.5px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s;
+    box-sizing: border-box;
+}
+
+.re-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.re-date-input  { width: 150px; }
+.re-price-input { width: 100px; }
+.re-volume-input { width: 110px; }
+
+.re-searcher-wrapper .stock-search-container {
+    width: 200px !important;
+}
+
+.re-tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.re-tag-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.re-btn {
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.re-confirm { background: #22c55e; color: white; }
+.re-confirm:hover { background: #16a34a; }
+
+.re-cancel { background: #ffe5e5; color: #d11a2a; }
+.re-cancel:hover { background: #ffd2d2; }
+
+.re-delete-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: 0.2s ease;
+}
+.re-delete-icon:hover { opacity: 1; transform: scale(1.1); }
+
+.re-error-text {
+    color: #ef5350;
+    font-size: 0.75rem;
+    line-height: 1.2;
+    display: block;
+}
+
+.re-error-text::before {
+    content: "–";
+}
+
+@keyframes reSlideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}

@@ -1,6 +1,6 @@
 import { useEffect, useRef, memo } from 'react';
 
-const CONTAINER_CLASS = "my-tradingview-ticker-container"; 
+const CONTAINER_CLASS = "tradingview-ticker-container"; 
 
 function TradingViewWidget() {
     const container = useRef(null);

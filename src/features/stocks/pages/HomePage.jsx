@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { stockService } from "../services";
-import { StockTable, PaginationControls } from "../components";
+import { StockTable } from "../components";
+import { PaginationControls } from "../../../shared";
 import TradingViewWidget from "../components/TradingViewWidget";
 import "./HomePage.css"
 
