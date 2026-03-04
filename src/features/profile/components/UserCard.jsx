@@ -54,11 +54,9 @@ export const UserCard = ({ profileAvatar, userName, email, editUser, deleteUser 
         const name = normalizeString(editedName);
         if (!validateString(minNameLength, maxNameLength, name)) {
             setNameError(true);
-            console.log("Invalid Edited name", editedName)
             return;
         };
 
-        console.log("Valid edited name", editedName)
         setConfirmType("edit");
         setConfirmTitle("¿Desea cambiar su nombre de usuario?");
         setConfirmMessage(`Su nuevo nombre será ${editedName}`);

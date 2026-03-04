@@ -50,7 +50,6 @@ export const UserProfilePage = () => {
     const fetchResultPage = (page) => {
         userService.page(page, totalItems)
             .then(result => {
-                console.log("TradeResults:", result.data.data)
                 let tradeResults = result.data.data.map(mapTradeResults)
                 setResultsList(tradeResults)
                 setTotalPages(result.data.totalPages)
@@ -76,6 +75,11 @@ export const UserProfilePage = () => {
     const handleEditUser = async (dto) => {
         await userService.edit(dto);
         fetchUserData();
+        if (currentPage == 1) {
+            fetchResultPage(currentPage);
+        } else {
+            setCurrentPage(1);
+        };
     };
 
     const handleDeleteUser = async () => {

@@ -1,0 +1,16 @@
+
+.no-data {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.no-data-icon {
+    font-size: 40px;
+}
+
+.no-data-text {
+    font-size: 15px;
+    color: #9ca3af;
+    font-weight: 500;
+    margin: 0;
+}

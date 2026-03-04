@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { isoToDateInput, deleteSpaces, validateDateResult, StockSearcher, ConfirmationDrawer } from "../../";
 import { resultEditDTO } from "../../../features/profile/";
+import { resultCreateDTO } from "../../../features/board/";
 import deleteicon from "../../../assets/img/del-icon.svg"
 import "./ResultEdit.css"
 
-export const ResultEdit = ({ item, onClose, editResult, deleteResult }) => {
+export const ResultEdit = ({ item, onClose, editResult, deleteResult, createResult }) => {
     const [ newSymbol, setNewSymbol ] = useState(item.symbol);
     const [ numberOfStocks, setNumberOfStocks ] = useState(item.numberOfStocks);
     const [ entryDate, setEntryDate ] = useState(isoToDateInput(item.entryDate));
@@ -81,8 +82,13 @@ export const ResultEdit = ({ item, onClose, editResult, deleteResult }) => {
         }
 
         setConfirmType("edit");
-        setConfirmTitle("¿Desea modificar su post?");
-        setConfirmMessage("En caso de error, siempre podrá modificar sus posts.");
+        if (createResult) {
+            setConfirmTitle("¿Desea publicar su resultado?");
+            setConfirmMessage("Su resultado será visible para todos los usuarios.");
+        } else {
+            setConfirmTitle("¿Desea modificar su post?");
+            setConfirmMessage("En caso de error, siempre podrá modificar sus posts.");
+        }        
         setDrawerOpen(true);
     };
     
@@ -99,6 +105,13 @@ export const ResultEdit = ({ item, onClose, editResult, deleteResult }) => {
         }            
         const isoEntryDate = entryDate + "T00:00:00.000Z";
         const isoExitDate = exitDate + "T00:00:00.000Z";
+
+        if (createResult) {
+            const resultPostDTO = resultCreateDTO(newSymbol, entryPrice, exitPrice, numberOfStocks,
+            isoEntryDate, isoExitDate, tradeMethod);
+            await createResult(resultPostDTO);
+            return;
+        }
 
         const resultUpdateDTO = resultEditDTO(id, newSymbol, entryPrice, exitPrice, numberOfStocks,
             isoEntryDate, isoExitDate, tradeMethod);
@@ -167,12 +180,14 @@ export const ResultEdit = ({ item, onClose, editResult, deleteResult }) => {
                                     </div>
                                 </div>
                             </div>
-                            <img
+                            {!createResult && (
+                                <img
                                 src={deleteicon}
                                 alt="Eliminar"
                                 className="re-delete-icon"
                                 onClick={handleDelete}
-                            />
+                                />
+                            )}                            
                         </div>
                         
                         {dateError && (
