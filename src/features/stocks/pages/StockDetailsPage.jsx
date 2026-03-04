@@ -149,7 +149,11 @@ export const StockDetailsPage = () => {
     };
 
     if (!query) {
-        return <div>Error: Símbolo no encontrado en la URL.</div>;
+        return <div className="no-data">
+            <span className="no-data-icon">🚧</span>
+            <p className="no-data-text">No se puede acceder al grafico de la acción.</p>
+            <p className="no-data-text">Por favor intente nuevamente más tarde.</p>
+        </div>; 
     };
 
     return (

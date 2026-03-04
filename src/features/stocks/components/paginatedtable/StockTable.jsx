@@ -1,6 +1,10 @@
 export const StockTable = ({ list, highlightedIndex, onRowClick, onRowHover }) => {
     if (!list || list.length === 0) {
-        return <div className="no-data-message">No hay acciones para mostrar.</div>; 
+        return <div className="no-data">
+            <span className="no-data-icon">🚧</span>
+            <p className="no-data-text">No hay acciones que mostrar.</p>
+            <p className="no-data-text">Por favor intente nuevamente más tarde.</p>
+        </div>; 
     }
 
     const StockRow = ({ item, index }) => {

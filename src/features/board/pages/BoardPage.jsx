@@ -1,68 +1,95 @@
 import { useEffect, useState } from "react";
-import { PaginationControls, ResultsList } from "../../../shared";
+import { useAuth0 } from "@auth0/auth0-react";
+import { resultService } from "../services"
+import { PaginationControls, ResultsList, mapTradeResults, ResultEdit } from "../../../shared";
 import "./BoardPage.css"
 
 export const BoardPage = () => {
-    const [ list, setList ] = useState([]);  
     const [ currentPage, setCurrentPage ] = useState(1);
-    const [ totalPages, setTotalPages ] = useState(1);          
+    const [ totalPages, setTotalPages ] = useState(1);    
+    const { isAuthenticated } = useAuth0();
+    const [ resultsList, setResultsList ] = useState([]);
+    const [ drawerOpen, setDrawerOpen ] = useState(false); 
+    const totalItems = 10;        
 
+    const tradeMethod = {
+        sma: false,
+        bollinger: false,
+        stochastic: false,
+        rsi: false,
+        other: false
+    };
+
+    const item = {
+        "symbol": "A",
+        "entryPrice": 0,
+        "exitPrice": 0,
+        "numberOfStocks": 0,
+        "entryDate": new Date().toISOString(),
+        "exitDate": new Date().toISOString(),
+        "tradeMethod": tradeMethod
+    };
+
+    const fetchResultPage = (page) => {
+        resultService.page(page, totalItems)
+            .then(result => {
+                console.log("TradeResults:", result.data.data)
+                let tradeResults = result.data.data.map(mapTradeResults)
+                setResultsList(tradeResults)
+                setTotalPages(result.data.totalPages)
+            })
+            .catch(error => {
+                setResultsList([]);
+                console.error("Error fetching results:", error)
+            });
+    };
+    
     useEffect (() => {
-        const results = [{
-        symbol: "AA",
-        entryPrice: "11",
-        exitPrice: "11,5",
-        profit: "0,5",
-        numberOfStocks: "3",
-        entryDate: "11/01/2026",
-        exitDate: "27/01/2026",
-        tradeMethod: {
-            "sma": true,
-            "bollinger": false,
-            "stochastic": false,
-            "rsi": false,
-            "other": false
-        },
-        userName: "Alejandro"
-    },
-    {
-        symbol: "BB",
-        entryPrice: "15",
-        exitPrice: "10",
-        profit: "-5",
-        numberOfStocks: "7",
-        entryDate: "25/01/2026",
-        exitDate: "24/01/2026",
-        tradeMethod: {
-            "sma": true,
-            "bollinger": true,
-            "stochastic": true,
-            "rsi": false,
-            "other": true
-        },
-        userName: "Alejandro"
-    }
-    ]
-
-    setList(results)
-
-    }, []);
+        fetchResultPage(currentPage);
+    }, [currentPage]); 
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     }
 
+    const handleCreateResult = async (dto) => {
+        await resultService.create(dto);
+        if (currentPage == 1) {
+            fetchResultPage(currentPage);
+        } else {
+            setCurrentPage(1);
+        };
+    };
+
     return (
         <>
         <div className="board-page-container">
+            {isAuthenticated && (<button
+                className="create-button"
+                onClick={() => setDrawerOpen(true)}
+            >
+                Nuevo Post
+            </button>)}
+
             <ResultsList
-                list={list}
+                list={resultsList}
+                editable={false}
             />
+
             <PaginationControls
                 currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={handlePageChange}
             />
+
+            {drawerOpen && (
+                <ResultEdit
+                    open={drawerOpen}
+                    item={item}
+                    onClose={() => setDrawerOpen(false)}
+                    createResult={handleCreateResult}
+                />
+            )} 
         </div>
         </>
     )
