@@ -109,7 +109,7 @@ export const StockSearcher = ({ searchPath, initialValue, onSelect }) => {
     const handleKeyDown = (e) => {
         if (!isFocused || qresult.length === 0) return;
         
-        const newIndex = highlightedIndex;
+        let newIndex = highlightedIndex;
 
         if (e.key === "ArrowDown") {
             e.preventDefault();

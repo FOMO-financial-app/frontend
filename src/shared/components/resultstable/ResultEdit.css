@@ -19,7 +19,6 @@
     border: 1px solid #ddd;
     color: #333;
     border-radius: 10px;
-    overflow: hidden;
 }
 
 .re-header {
@@ -29,6 +28,7 @@
     background: #f8f8f8;
     border-bottom: 1px solid #ddd;
     gap: 6px;
+    border-radius: 10px 10px 0 0;
 }
 
 .re-header-top {
@@ -84,6 +84,7 @@
     padding: 12px 16px;
     border-top: 1px solid #ddd;
     background: #f8f8f8;
+    border-radius: 0 0 10px 10px
 }
 
 .re-input-money-wrapper {

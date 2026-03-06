@@ -6,7 +6,7 @@ import { ConfirmationDrawer } from "../../../shared/"
 import { userEditDTO } from "../models/"
 import "./AlertCard.css"
 
-export const AlertCard = ({ alerts, onCheck, editUser}) => {
+export const AlertCard = ({ alerts, onCheck, editUser, isLoading }) => {
     const [ isEditing, setIsEditing ] = useState(false);
     const [ drawerOpen, setDrawerOpen ] = useState(false);
     const [ confirmTitle, setConfirmTitle ] = useState("");
@@ -20,6 +20,20 @@ export const AlertCard = ({ alerts, onCheck, editUser}) => {
         { key: "stochasticAlert", label: "Estocástico", tag: "stochastic" }
     ];
 
+    if (isLoading) {
+        return (
+            <div className="alert-card">
+                <div className="skeleton ac-skeleton-title" />
+                <div className="alert-grid">
+                    <div className="skeleton ac-skeleton-tag" />
+                    <div className="skeleton ac-skeleton-tag" />
+                    <div className="skeleton ac-skeleton-tag" />
+                    <div className="skeleton ac-skeleton-tag" />
+                </div>
+            </div>
+        );
+    }
+    
     const handleEdit = () => {
         if (!isEditing) {
             setIsEditing(true);

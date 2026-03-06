@@ -8,7 +8,7 @@ import { ConfirmationDrawer, normalizeString, validateString } from "../../../sh
 import { userEditDTO } from "../models/"
 import "./UserCard.css"
 
-export const UserCard = ({ profileAvatar, userName, email, editUser, deleteUser }) => {
+export const UserCard = ({ profileAvatar, userName, email, editUser, deleteUser, isLoading }) => {
     const [ isEditing, setIsEditing ] = useState(false);
     const [ editedName, setEditedName ] = useState("");
     const [ drawerOpen, setDrawerOpen ] = useState(false);
@@ -18,6 +18,18 @@ export const UserCard = ({ profileAvatar, userName, email, editUser, deleteUser 
     const [ nameError, setNameError ] = useState(false);
     const minNameLength = 3;
     const maxNameLength = 50;
+    
+    if (isLoading) {
+        return (
+            <div className="user-card">
+                <div className="skeleton uc-skeleton-avatar" />
+                <div className="user-info">
+                    <div className="skeleton uc-skeleton-name" />
+                    <div className="skeleton uc-skeleton-email" />
+                </div>
+            </div>
+        );
+    }
     
     const handleEdit = () => {
         if (!isEditing) {

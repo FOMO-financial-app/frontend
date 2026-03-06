@@ -143,3 +143,22 @@
     opacity: 1;
     transform: translateY(-50%) scale(1.1);
 }
+
+@keyframes skeleton-shimmer {
+    0%   { background-position: -600px 0; }
+    100% { background-position:  600px 0; }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 600px 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+    border-radius: 4px;
+    height: 14px;
+}
+
+.skeleton-header-dates { width: 220px; height: 13px; }
+.skeleton-header-user  { width: 80px;  height: 13px; }
+.skeleton-symbol       { width: 80px;  height: 32px; }
+.skeleton-metric       { width: 180px; height: 20px; }
+.skeleton-tags         { width: 140px; height: 24px; margin-left: auto; }

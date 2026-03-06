@@ -107,3 +107,28 @@
 .alert-card:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
+
+@keyframes skeleton-shimmer {
+    0%   { background-position: -600px 0; }
+    100% { background-position:  600px 0; }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 600px 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+    border-radius: 4px;
+    height: 14px;
+}
+
+.ac-skeleton-title {
+    width: 80px;
+    height: 22px;
+    margin-top: 10px;
+}
+
+.ac-skeleton-tag {
+    width: 90px;
+    height: 28px;
+    border-radius: 20px;
+}

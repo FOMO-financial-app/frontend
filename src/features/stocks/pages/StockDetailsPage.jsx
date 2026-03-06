@@ -94,7 +94,7 @@ export const StockDetailsPage = () => {
 
     useEffect (() => {
         fetchDetailsData(query);
-    }, []);
+    }, [query]);
 
     const handleMainChannelCheck = () => {
         if (mainChannel.length == 0) {
@@ -148,7 +148,7 @@ export const StockDetailsPage = () => {
             fetchWrsiData, showRsi, setShowRsi)        
     };
 
-    if (!query) {
+    if (!timeSeries) {
         return <div className="no-data">
             <span className="no-data-icon">🚧</span>
             <p className="no-data-text">No se puede acceder al grafico de la acción.</p>

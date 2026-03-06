@@ -83,3 +83,20 @@
     font-weight: 500;
     margin: 0;
 }
+
+@keyframes skeleton-shimmer {
+    0%   { background-position: -600px 0; }
+    100% { background-position:  600px 0; }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 600px 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+    border-radius: 4px;
+    height: 14px;
+}
+
+.skeleton-cell       { width: 80px;  }
+.skeleton-cell-wide  { width: 260px; }
+.skeleton-cell-sm    { width: 60px;  }

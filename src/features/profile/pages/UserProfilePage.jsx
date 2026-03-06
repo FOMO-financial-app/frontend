@@ -17,7 +17,9 @@ export const UserProfilePage = () => {
         bollingerAlert: false,
         stochasticAlert: false
     });
-    const [ resultsList, setResultsList ] = useState([]); 
+    const [ resultsList, setResultsList ] = useState([]);
+    const [ resultsLoading, setResultsLoading ] = useState(false);
+    const [ userDataLoading, setUserDataLoading ] = useState(false); 
     const totalItems = 10;
 
     const {
@@ -25,9 +27,10 @@ export const UserProfilePage = () => {
     } = useAuth0();
 
     if (isLoading) return null;
-    if (!isAuthenticated || !user) return null;
+    if (!isAuthenticated || !user) return null;    
 
     const fetchUserData = () => {
+        setUserDataLoading(true);
         userService.details()
             .then(result => {
                 const data = result.data;
@@ -44,10 +47,14 @@ export const UserProfilePage = () => {
                 setUserDbName(null);
                 setAlerts(null);
                 console.error("Error fetching user details:", error);
-            });
+            })
+            .finally(() => {
+                setUserDataLoading(false);
+            })
     };
 
     const fetchResultPage = (page) => {
+        setResultsLoading(true);
         userService.page(page, totalItems)
             .then(result => {
                 let tradeResults = result.data.data.map(mapTradeResults)
@@ -57,7 +64,10 @@ export const UserProfilePage = () => {
             .catch(error => {
                 setResultsList([]);
                 console.error("Error fetching results:", error)
-            });
+            })
+            .finally(() => {
+                setResultsLoading(false);
+            })
     };
 
     useEffect (() => {
@@ -112,6 +122,14 @@ export const UserProfilePage = () => {
         };
     };
     
+    if (!userDataLoading && !userDbName) {
+        return <div className="no-data">
+            <span className="no-data-icon">⛔</span>
+            <p className="no-data-text">No se puede acceder a los datos del usuario.</p>
+            <p className="no-data-text">Por favor intente nuevamente más tarde.</p>
+        </div>; 
+    };
+
     return (
         <div className="profile-page-container">
             <div className="profile-header">
@@ -122,6 +140,7 @@ export const UserProfilePage = () => {
                         email={user.email}
                         editUser={handleEditUser}
                         deleteUser={handleDeleteUser}
+                        isLoading={userDataLoading}
                     />
                 )}
                 
@@ -129,6 +148,7 @@ export const UserProfilePage = () => {
                     alerts={alerts}
                     onCheck={handleToggleAlert}
                     editUser={handleEditUser}
+                    isLoading={userDataLoading}
                 />
             </div>
             
@@ -138,6 +158,8 @@ export const UserProfilePage = () => {
                     editable={true}
                     onEdit={handleEditResult}
                     onDelete={handleDeleteResult}
+                    isLoading={resultsLoading}
+                    pageSize={totalItems}
                 />
                 <PaginationControls
                     currentPage={currentPage}
