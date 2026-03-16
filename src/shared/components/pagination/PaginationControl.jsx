@@ -1,7 +1,9 @@
+import { useWindowWidth } from "../../hooks";
 import "./PaginationControl.css"
 
 export const PaginationControls = ({ currentPage, totalPages, onPageChange }) => {
-    const maxPages = 7;
+    const width = useWindowWidth();
+    const maxPages = width < 400 ? 3 : width < 567 ? 5 : 7;
 
     let startPage, endPage;
 

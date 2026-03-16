@@ -35,7 +35,6 @@ export const BoardPage = () => {
         setIsLoading(true);
         resultService.page(page, totalItems)
             .then(result => {
-                console.log("TradeResults:", result.data.data)
                 let tradeResults = result.data.data.map(mapTradeResults)
                 setResultsList(tradeResults)
                 setTotalPages(result.data.totalPages)

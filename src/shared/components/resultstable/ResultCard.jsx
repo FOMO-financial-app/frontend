@@ -2,10 +2,14 @@ import { useState } from "react";
 import { isoToLocalDate } from "../../utils/";
 import { ResultEdit } from "./ResultEdit.jsx"
 import { TradeMethodTags } from "./TradeMethodTags";
+import { TradeMethodTagsMobile } from "./TradeMethodTagsMobile.jsx";
+import { useWindowWidth } from "../../hooks/useWindowWidth.js";
 import editicon from "../../../assets/img/edit-icon.svg"
 import "./ResultCard.css"
 
 export const ResultCard = ({ item, editable, onEdit, onDelete }) => {
+    const width = useWindowWidth();
+    const isMobile = width < 567;
     const [ drawerOpen, setDrawerOpen ] = useState(false);
 
     const {
@@ -64,10 +68,14 @@ export const ResultCard = ({ item, editable, onEdit, onDelete }) => {
                         <span className="volume-value">{numberOfStocks}</span>        
                     </div>
                 
-                    <div className="tags-column">
-                        <TradeMethodTags tradeMethod={tradeMethod}/>
-                    </div>                
-                </div>            
+                    {!isMobile && (
+                        <div className="tags-column">
+                            <TradeMethodTags tradeMethod={tradeMethod}/>
+                        </div>
+                    )}
+                </div>
+
+                {isMobile && <TradeMethodTagsMobile tradeMethod={tradeMethod} />}            
             </div>
 
             {editable && (

@@ -182,3 +182,84 @@
     from { transform: translateY(30px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
+
+@media (max-width: 660px) {    
+    
+
+    .re-delete-icon {
+        width: 18px;
+        height: 18px;
+        margin-top: -4px;
+        margin-right: -10px;
+    }
+
+    .re-drawer {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .re-card {
+        border-radius: 8px;
+    }
+
+    .re-header-top {
+        align-items: flex-start;
+    }
+
+    .re-trade-dates {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .re-date-block {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .re-date-input {
+        width: 100%;
+    }
+
+    .re-price-input {
+        width: 100%;
+    }
+
+        .re-body {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .re-column {
+        width: 100%;
+    }
+
+    .re-searcher-wrapper .stock-search-container {
+        width: 100% !important;
+    }
+
+    .re-volume-input {
+        width: 100%;
+    }
+
+    .re-tags-container {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .re-tag-item {
+        font-size: 13px;
+    }
+
+    .re-footer {
+        justify-content: space-between;
+    }
+
+    .re-btn {
+        flex: 1;
+        padding: 10px;
+    }
+
+}

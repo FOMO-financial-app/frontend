@@ -4,6 +4,7 @@ import fomoicon from "../../../../assets/img/fomo-icon.svg"
 import rocketicon from "../../../../assets/img/rocket-icon.svg"
 import "./Header.css"
 import { UserMenu } from "./UserMenu"
+import { MobileMenu } from "./MobileMenu"
 
 export const Header = () => {
     return (
@@ -15,9 +16,10 @@ export const Header = () => {
                 </Link>
                 <div className="nav">
                     <StockSearcher searchPath="stock-details"></StockSearcher>
-                    <Link to={'/resultados'}>Resultados</Link>
+                    <Link to={'/resultados'} className="nav-results">Resultados</Link>
                 </div>
-                <UserMenu/>
+                <div className="desktop-only"><UserMenu/></div>
+                <div className="mobile-only"><MobileMenu/></div>
             </nav>
         </header>
     )

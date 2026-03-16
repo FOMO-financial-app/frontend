@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react"
 import { stockService, fetchBandsData, fetchIndicatorData, rsiCheck, bandsCheck } from "../services"
 import { mapToCandleStick, mapMainChannel, mapStochasticD, mapStochasticK } from "../models";
-import { MainChart, ChartOptions, RsiChart, StochasticChart, ChartInfoDrawer } from "../components";
+import { MainChart, ChartOptions, RsiChart, StochasticChart, ChartInfoDrawer, ChartOptionsDrawer } from "../components";
 import { useParams } from "react-router-dom";
+import { useWindowWidth } from "../../../shared";
 import "./StocksDetailsPage.css"
 
 export const StockDetailsPage = () => {
@@ -34,6 +35,8 @@ export const StockDetailsPage = () => {
     const [ wrsiPeriod, setWrsiPeriod ] = useState(9);  
     const [ infoOpen, setInfoOpen] = useState(false);
     const [ activeInfo, setActiveInfo] = useState(null);
+    const width = useWindowWidth();
+    const isMobile = width < 950;
 
     const fetchDetailsData = (symbol) => {
         stockService.details(symbol)
@@ -158,28 +161,55 @@ export const StockDetailsPage = () => {
 
     return (
         <div className="details-page-container">
-            <aside className="options-container">
-                <h1 className="details-page-title">Detalles de {query}</h1>
-                <ChartOptions 
-                    handleMainChannelCheck={handleMainChannelCheck}
-                    handleSmaCheck={handleSmaCheck}
-                    handleEnvelopesCheck={handleEnvelopesCheck}
-                    handleBollingerCheck={handleBollingerCheck}
-                    handleStochasticCheck={handleStochasticCheck}
-                    handleRSICheck={handleRsiCheck}
-                    handleWRSICheck={handleWrsiCheck}
-                    showSma={showSma}
-                    showEnvelopes={showEnvelopes}
-                    showBollinger={showBollinger}
-                    showStochastic={showStochastic}
-                    showRsi={showRsi}
-                    showWrsi={showWrsi}
-                    setActiveInfo={setActiveInfo}
-                    setInfoOpen={setInfoOpen}
-                />
-            </aside>            
+            {!isMobile && (
+                <aside className="options-container">
+                    <h1 className="details-page-title">Detalles de {query}</h1>
+                    <ChartOptions 
+                        handleMainChannelCheck={handleMainChannelCheck}
+                        handleSmaCheck={handleSmaCheck}
+                        handleEnvelopesCheck={handleEnvelopesCheck}
+                        handleBollingerCheck={handleBollingerCheck}
+                        handleStochasticCheck={handleStochasticCheck}
+                        handleRSICheck={handleRsiCheck}
+                        handleWRSICheck={handleWrsiCheck}
+                        showSma={showSma}
+                        showEnvelopes={showEnvelopes}
+                        showBollinger={showBollinger}
+                        showStochastic={showStochastic}
+                        showRsi={showRsi}
+                        showWrsi={showWrsi}
+                        setActiveInfo={setActiveInfo}
+                        setInfoOpen={setInfoOpen}
+                    />
+                </aside>            
+            )}
+            
+            
 
             <main className="chart-main-content">
+                {isMobile && (
+                    <div className="chart-top-bar">
+                        <ChartOptionsDrawer
+                            handleMainChannelCheck={handleMainChannelCheck}
+                            handleSmaCheck={handleSmaCheck}
+                            handleEnvelopesCheck={handleEnvelopesCheck}
+                            handleBollingerCheck={handleBollingerCheck}
+                            handleStochasticCheck={handleStochasticCheck}
+                            handleRSICheck={handleRsiCheck}
+                            handleWRSICheck={handleWrsiCheck}
+                            showSma={showSma}
+                            showEnvelopes={showEnvelopes}
+                            showBollinger={showBollinger}
+                            showStochastic={showStochastic}
+                            showRsi={showRsi}
+                            showWrsi={showWrsi}
+                            setActiveInfo={setActiveInfo}
+                            setInfoOpen={setInfoOpen}
+                        />                    
+                        <h1 className="details-mobile-title">Detalles de {query}</h1>
+                    </div>
+                )}
+
                 <MainChart
                     data={timeSeries}
                     mainChannelData={mainChannel}
@@ -190,7 +220,7 @@ export const StockDetailsPage = () => {
                     showEnvelopes={showEnvelopes}
                     bollingerData={bollinger}
                     showBollinger={showBollinger}
-                />
+                />                
 
                 {(showRsi || showWrsi) && (
                     <div className="indicator-chart-container">
@@ -202,7 +232,7 @@ export const StockDetailsPage = () => {
                         />
                     </div>
                 )}
-            
+
                 {showStochastic && (
                     <div className="indicator-chart-container">
                         <StochasticChart

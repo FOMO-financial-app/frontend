@@ -2,6 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
     margin-top: 10px;
     padding: 5px 0;
     font-size: 14px;
@@ -52,4 +54,12 @@
     padding-left: 5px;
     padding-right: 5px;
     margin: 0 4px;
+}
+
+@media (max-width: 600px) {
+    .pagination-container button {
+        padding: 6px 8px;
+        font-size: 12px;
+        margin: 0 2px;
+    }
 }
