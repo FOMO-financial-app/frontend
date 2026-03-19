@@ -11,11 +11,13 @@ export const HomePage = () => {
     const [ list, setList ] = useState([]);  
     const [ currentPage, setCurrentPage ] = useState(1);
     const [ totalPages, setTotalPages ] = useState(1);
-    const navigate = useNavigate();          
+    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(true);          
     const totalItems = 14;
     const searchPath = "stock-details"
 
     const fetchPageData = (page) => {
+        setIsLoading(true);
         stockService.page(page, totalItems)
             .then(result => {
                 setList(result.data.data)
@@ -24,6 +26,9 @@ export const HomePage = () => {
             .catch(error => {
                 setList([]);
                 console.error("Error fetching stocks:", error)
+            })
+            .finally(() => {
+                setIsLoading(false);
             });
     };
 
@@ -56,6 +61,8 @@ export const HomePage = () => {
                 highlightedIndex={highlightedIndex}
                 onRowClick={handleRowClick}
                 onRowHover={handleRowHover}
+                isLoading={isLoading}
+                pageSize={totalItems}
             />
             <PaginationControls
                 currentPage={currentPage}

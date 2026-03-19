@@ -10,10 +10,12 @@ createRoot(document.getElementById('root')).render(
         <Auth0Provider
             domain=""
             clientId=""
+            cacheLocation="localstorage"
+            useRefreshTokens={true}
             authorizationParams={{
                 redirect_uri: window.location.origin,
                 audience: "",
-                scope: "openid profile email"
+                scope: "openid profile email offline_access"
             }}
         >
             <BrowserRouter>

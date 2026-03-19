@@ -9,7 +9,8 @@ export const BoardPage = () => {
     const [ totalPages, setTotalPages ] = useState(1);    
     const { isAuthenticated } = useAuth0();
     const [ resultsList, setResultsList ] = useState([]);
-    const [ drawerOpen, setDrawerOpen ] = useState(false); 
+    const [ drawerOpen, setDrawerOpen ] = useState(false);
+    const [ isLoading, setIsLoading ] = useState(false); 
     const totalItems = 10;        
 
     const tradeMethod = {
@@ -31,9 +32,9 @@ export const BoardPage = () => {
     };
 
     const fetchResultPage = (page) => {
+        setIsLoading(true);
         resultService.page(page, totalItems)
             .then(result => {
-                console.log("TradeResults:", result.data.data)
                 let tradeResults = result.data.data.map(mapTradeResults)
                 setResultsList(tradeResults)
                 setTotalPages(result.data.totalPages)
@@ -41,6 +42,9 @@ export const BoardPage = () => {
             .catch(error => {
                 setResultsList([]);
                 console.error("Error fetching results:", error)
+            })
+            .finally(() => {
+                setIsLoading(false);
             });
     };
     
@@ -74,6 +78,8 @@ export const BoardPage = () => {
             <ResultsList
                 list={resultsList}
                 editable={false}
+                isLoading={isLoading}
+                pageSize={totalItems}
             />
 
             <PaginationControls

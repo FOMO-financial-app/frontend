@@ -27,17 +27,17 @@ export const Footer = () => {
                         rel="noopener noreferrer"
                         title="error icon"
                     >
-                        Error iconos creados por Gregor Cresnar - Flaticon
+                        Error icono creado por Gregor Cresnar - Flaticon
                     </a>
                 </p>
                 <p>
                     <a 
-                        href="https://www.flaticon.es/iconos-gratis/astronave"
+                        href="https://www.flaticon.es/icono-gratis/lanzadera_2285551"
                         target="_blank"
-                        rel="noopener noreferrer" 
+                        rel="noopener noreferrer"
                         title="spaceship icon"
                     >
-                        Astronave iconos creados por Freepik - Flaticon
+                        Lanzadera icono creado por Teamwork - Flaticon
                     </a>
                 </p>
                 <p>

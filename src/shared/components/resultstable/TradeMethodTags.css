@@ -44,3 +44,29 @@
     color: #94a3b8;
     border-color: #94a3b8;
 }
+
+.tags-mobile-footer {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 6px 16px;
+    border-top: 1px solid #eee;
+    background: #fafafa;
+    font-size: 12px;
+    gap: 2px;
+    justify-content: center;
+}
+
+.tag-mobile {
+    font-weight: 600;
+    color: #333;
+}
+
+.tag-mobile.tag-sma        { color: #3b82f6; }
+.tag-mobile.tag-bollinger  { color: #a855f7; }
+.tag-mobile.tag-stochastic { color: #ef4444; }
+.tag-mobile.tag-rsi        { color: #22c55e; }
+.tag-mobile.tag-other      { color: #94a3b8; }
+
+.tag-mobile-separator {
+    color: #aaa;
+}

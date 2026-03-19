@@ -34,8 +34,8 @@ header nav {
     gap: 15px;
     flex: 1;
     max-width: 600px;
-    min-width: 300px;
-    margin-right: 400px;
+    min-width: 0px;
+    margin-right: auto;
 }
 
 
@@ -57,21 +57,29 @@ header nav {
     background-color: #f5f5f5;
 }
 
-.user-profile {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
+.mobile-only {
+    display: none;
 }
 
-.user-profile img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid transparent;
-    transition: border-color 0.2s;
+.fomo-icon {
+    display: block;
 }
 
-.user-profile:hover img {
-    border-color: #007bff;
+@media (max-width: 600px) {
+    .desktop-only {
+        display: none;
+    }
+
+    .mobile-only {
+        display: flex;
+        align-items: center;
+    }
+
+    .logo .fomo-icon {
+        display: none;
+    }
+
+    .nav a {
+        display: none;
+    }
 }

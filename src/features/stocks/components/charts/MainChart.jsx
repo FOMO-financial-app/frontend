@@ -36,8 +36,8 @@ export const MainChart = ({
         if (!chartContainerRef.current) return;
 
         const chart = createChart(chartContainerRef.current, { 
-            layout: { textColor: 'black', background: { type: 'solid', color: 'white' } },
             autoSize: true,
+            layout: { textColor: 'black', background: { type: 'solid', color: 'white' } },            
             timeScale: { fixLeftEdge: true, fixRightEdge: true, lockVisibleTimeRangeOnResize: true, rightOffset: 0 },
         });
 
@@ -62,7 +62,9 @@ export const MainChart = ({
 
         chartRef.current = chart;
 
-        return () => chart.remove();
+        return () => {
+            chart.remove();
+        };
     }, []);
 
     // Sync stock data with candlesticks.
