@@ -46,11 +46,17 @@
 .price {
     color: #000;
     font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .user {
     color: #000;
     font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .result-card-body {
@@ -72,6 +78,9 @@
 }
 
 .profit {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     letter-spacing: -0.2px;
 }
 
@@ -111,6 +120,9 @@
     font-size: 20px;
     font-weight: 500;
     color: #444;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .tags-column {
@@ -168,6 +180,12 @@
         width: 16px;
         height: 16px;
         right: -18px;
+    }
+}
+
+@media (max-width: 700px) {
+    .user {
+        margin-left: 16px;
     }
 }
 
