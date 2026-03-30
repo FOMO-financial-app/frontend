@@ -42,7 +42,7 @@ export const StockSearcher = ({ searchPath, initialValue, onSelect }) => {
             if (onSelect) {
                 onSelect(selected)
             } else {
-                navigate(`${searchPath}/${selected}`);
+                navigate(`${searchPath}?query=${encodeURIComponent(selected)}`);
             }
             return;
         }
@@ -52,7 +52,7 @@ export const StockSearcher = ({ searchPath, initialValue, onSelect }) => {
             if (onSelect) {
                 onSelect(firstmatch)
             } else {
-                navigate(`${searchPath}/${firstmatch}`);
+                navigate(`${searchPath}?query=${encodeURIComponent(firstmatch)}`);
             }
             return;
         }

@@ -2,12 +2,12 @@ import { useState, useEffect } from "react"
 import { stockService, fetchBandsData, fetchIndicatorData, rsiCheck, bandsCheck } from "../services"
 import { mapToCandleStick, mapMainChannel, mapStochasticD, mapStochasticK } from "../models";
 import { MainChart, ChartOptions, RsiChart, StochasticChart, ChartInfoDrawer, ChartOptionsDrawer } from "../components";
-import { useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useWindowWidth } from "../../../shared";
 import "./StocksDetailsPage.css"
 
 export const StockDetailsPage = () => {
-    const { query } = useParams();
+    const [searchParams] = useSearchParams();    
     const [ timeSeries, setTimeSeries ] = useState([]);
     const [ mainChannel, setMainChannel] = useState([]);
     const [ sma, setSma ] = useState([]);
@@ -36,12 +36,14 @@ export const StockDetailsPage = () => {
     const [ infoOpen, setInfoOpen] = useState(false);
     const [ activeInfo, setActiveInfo] = useState(null);
     const width = useWindowWidth();
+    const query = searchParams.get("query");
     const isMobile = width < 950;
 
     const fetchDetailsData = (symbol) => {
         stockService.details(symbol)
             .then(result => {
                 const data = result.data;
+                console.log("data:", data);
                 const values = mapToCandleStick(data.values);
                 setTimeSeries(values);
                 const channel = mapMainChannel(data);
