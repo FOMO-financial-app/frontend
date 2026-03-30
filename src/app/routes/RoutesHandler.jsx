@@ -14,7 +14,7 @@ export const RoutesHandler = () => {
                 <Route path='*' element={<InvalidRoutePage />}></Route>
                 <Route path='/resultados' element={<BoardPage />}></Route>
                 <Route path='/perfil' element={<ProtectedProfile />}></Route>
-                <Route path='/stock-details/:query' element={<StockDetailsPage />}></Route>
+                <Route path='/stock-details' element={<StockDetailsPage />}></Route>
             </Route>
         </Routes>
     )
