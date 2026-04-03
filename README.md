@@ -73,7 +73,19 @@ This project uses Auth0 for authentication.
 
 https://manage.auth0.com
 
-### Aplication configuration:
+### 🔑 Get Auth0 Application Client ID
+
+![Auth0 ClientId](./docs/images/auth0-clientid.png)
+
+### 🔑 Get Auth0 Aplication Domain
+
+![Auth0 Domain](./docs/images/auth0-domain.png)
+
+### 🔑 Get Auth0 API Audience
+
+![Auth0 Audience](./docs/images/auth0-audience.png)
+
+### Application configuration:
 
 * Application type: Single Page Application
 * Allowed Callback URLs: http://yourfrontendurl
@@ -155,6 +167,18 @@ src/
 ## 📸 Screenshots
 
 > See organization profile for full visual overview
+
+### 🔍 Search & Discovery
+
+Quickly search and explore stocks across NASDAQ and NYSE markets.
+
+![Homepage interface](./docs/images/homepage.png)
+
+### 📈 Technical Indicators
+
+Apply multiple indicators such as SMA and Bollinger Bands on the same chart.
+
+![Indicators](./docs/images/chart-indicators.png)
 
 ---
 
