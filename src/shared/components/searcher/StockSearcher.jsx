@@ -148,7 +148,7 @@ export const StockSearcher = ({ searchPath, initialValue, onSelect }) => {
         }
 
         setTimeout(() => {
-            navigate(`${searchPath}/${symbol}`);
+            navigate(`${searchPath}?query=${encodeURIComponent(symbol)}`);
         }, 50);
     };
 
