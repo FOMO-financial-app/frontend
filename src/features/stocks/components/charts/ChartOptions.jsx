@@ -5,7 +5,8 @@ import icon from "../../../../assets/img/info-icon.svg";
 import "./ChartOptions.css";
 
 export const ChartOptions = ({ handleMainChannelCheck, handleSmaCheck, handleEnvelopesCheck, handleBollingerCheck, handleStochasticCheck,
-    handleRSICheck, handleWRSICheck, showSma, showEnvelopes, showBollinger, showStochastic, showRsi, showWrsi, setActiveInfo, setInfoOpen }) => {
+    handleRSICheck, handleWRSICheck, showMainChannel, showSma, showEnvelopes, showBollinger, showStochastic, showRsi, showWrsi, setActiveInfo,
+    setInfoOpen }) => {
     const [ smaPeriod, setSmaPeriod ] = useState(20);
     const [ envelopesPeriod, setEnvelopesPeriod ] = useState(20);
     const [ envPercentage, setEnvPercentage ] = useState(10);
@@ -60,13 +61,22 @@ export const ChartOptions = ({ handleMainChannelCheck, handleSmaCheck, handleEnv
         handleStochasticCheck(stochasticKPeriod, stochasticDPeriod, true);
     };
 
+    const handleMainChannelToggle = (checked) => {
+        if (!checked) {
+            handleMainChannelCheck(false);
+            return;
+        }
+        handleMainChannelCheck(true);
+    };
+
     return (
         <div className="chart-options-container">
             <MainChannelOptions
                 setActiveInfo={setActiveInfo}
                 setInfoOpen={setInfoOpen}
                 icon={icon}
-                handleMainChannelCheck={handleMainChannelCheck}
+                showMainChannel={showMainChannel}
+                handleMainChannelToggle={handleMainChannelToggle}
             />
 
             <SmaOptions

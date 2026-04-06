@@ -1,4 +1,4 @@
-export const MainChannelOptions = ({setActiveInfo, setInfoOpen, icon, handleMainChannelCheck }) => {
+export const MainChannelOptions = ({setActiveInfo, setInfoOpen, icon, showMainChannel, handleMainChannelToggle}) => {
     return (
         <div className="option-container">
             <div className="option-header">
@@ -20,7 +20,8 @@ export const MainChannelOptions = ({setActiveInfo, setInfoOpen, icon, handleMain
                         </button>
                 </span>                    
                 <label className="switch">
-                    <input type="checkbox" onChange={handleMainChannelCheck}/>
+                    <input type="checkbox" checked={showMainChannel}
+                        onChange={(e) => handleMainChannelToggle(e.target.checked)}/>
                     <span className="slider-round"/>
                 </label>  
             </div>
