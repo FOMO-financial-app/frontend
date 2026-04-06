@@ -101,11 +101,15 @@ export const StockDetailsPage = () => {
         fetchDetailsData(query);
     }, [query]);
 
-    const handleMainChannelCheck = () => {
+    const handleMainChannelCheck = (nextShow) => {
+        if (!nextShow) {
+            setShowMainChannel(false);
+            return;
+        }
         if (mainChannel.length == 0) {
             return;
         };
-        setShowMainChannel(!showMainChannel);
+        setShowMainChannel(true);
     };
 
     const handleSmaCheck = (period, nextShow) => {
@@ -174,6 +178,7 @@ export const StockDetailsPage = () => {
                         handleStochasticCheck={handleStochasticCheck}
                         handleRSICheck={handleRsiCheck}
                         handleWRSICheck={handleWrsiCheck}
+                        showMainChannel={showMainChannel}
                         showSma={showSma}
                         showEnvelopes={showEnvelopes}
                         showBollinger={showBollinger}
