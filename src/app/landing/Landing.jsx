@@ -1,15 +1,15 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom'
-import herobackground from "../../assets/img/hero-background.jpg"
-import chartindicators from "../../assets/img/screenshots/chart-indicators.png"
-import emailalert from "../../assets/img/screenshots/email-alert.png"
-import homepage from "../../assets/img/screenshots/homepage.png"
-import socialboard from "../../assets/img/screenshots/social-board.png"
-import mobilechart from "../../assets/img/screenshots/mobile-chart.png"
-import mobilealert from "../../assets/img/screenshots/mobile-alert.png"
-import mobilehomepage from "../../assets/img/screenshots/mobile-homepage.png"
-import mobileboard from "../../assets/img/screenshots/mobile-board.png"
+import herobackground from "../../assets/img/hero-background.avif"
+import chartindicators from "../../assets/img/screenshots/chart-indicators.avif"
+import emailalert from "../../assets/img/screenshots/email-alert.avif"
+import homepage from "../../assets/img/screenshots/homepage.avif"
+import socialboard from "../../assets/img/screenshots/social-board.avif"
+import mobilechart from "../../assets/img/screenshots/mobile-chart.avif"
+import mobilealert from "../../assets/img/screenshots/mobile-alert.avif"
+import mobilehomepage from "../../assets/img/screenshots/mobile-homepage.avif"
+import mobileboard from "../../assets/img/screenshots/mobile-board.avif"
 import fomologo from "../../assets/img/fomo-icon.svg"
 import fomoicon from "../../assets/img/rocket-icon.svg"
 import { useWindowWidth } from "../../shared";
