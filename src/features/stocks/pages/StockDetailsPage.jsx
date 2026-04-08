@@ -43,7 +43,6 @@ export const StockDetailsPage = () => {
         stockService.details(symbol)
             .then(result => {
                 const data = result.data;
-                console.log("data:", data);
                 const values = mapToCandleStick(data.values);
                 setTimeSeries(values);
                 const channel = mapMainChannel(data);

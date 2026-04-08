@@ -188,11 +188,20 @@ html {
     position: relative;
 }
 
-.carousel__image {
+.carousel__image,
+.carousel__image-mobile {
     width: 100%;
     display: block;
     border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);    
+}
+
+.carousel__image {
+    aspect-ratio: 221 / 139;
+}
+
+.carousel__image-mobile {
+    aspect-ratio: 103 / 162;
 }
 
 .carousel__btn {
@@ -342,7 +351,8 @@ html {
         margin-top: 12px;
     }
 
-    .carousel__image {
+    .carousel__image,
+    .carousel__image-mobile {
         max-height: 400px;
         object-fit: contain;
     }

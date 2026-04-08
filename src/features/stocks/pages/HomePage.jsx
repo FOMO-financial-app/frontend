@@ -38,7 +38,7 @@ export const HomePage = () => {
 
     const handleRowClick = (symbol) => {
         setTimeout(() => {
-            navigate(`${searchPath}?query=${encodeURIComponent(symbol)}`);
+            navigate(`/${searchPath}?query=${encodeURIComponent(symbol)}`);
         }, 50);
     };
 

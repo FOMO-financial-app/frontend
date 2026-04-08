@@ -187,7 +187,7 @@ export const Landing = () => {
                                 key={mobileslides[index].img}
                                 src={mobileslides[index].img}
                                 alt="feature"
-                                className="carousel__image"
+                                className="carousel__image-mobile"
                                 custom={direction}
                                 variants={{
                                     enter:  (dir) => ({ opacity: 0, x: dir > 0 ? 60 : -60 }),
