@@ -1,0 +1,347 @@
+.landing {
+    font-family: sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    overflow: hidden;
+    max-height: 1000px;
+}
+
+.hero__background {
+    position: absolute;
+    inset: 0;
+}
+
+.hero__bg-img {
+      width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+
+}
+
+.hero__bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.6), rgba(0,0,0,0.9));
+}
+
+.hero__logo {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hero__logo-img {
+    height: 32px;
+    width: auto;
+    filter: invert(1);
+}
+
+.hero__icon-img {
+    height: 28px;
+    width: auto;
+    filter: invert(1);
+}
+
+.hero__content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 24px;
+    transform: translateY(-60px);
+}
+
+.hero__title {
+    font-size: clamp(3rem, 7vw, 4.5rem);
+    font-weight: bold;
+}
+
+.hero__subtitle {
+    margin-top: 16px;
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.hero__description {
+    margin-top: 16px;
+    color: #ffffff;
+    max-width: 36rem;
+  
+}
+
+.hero__cta {
+    margin-top: 40px;
+    padding: 14px 36px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hero__cta:hover {
+    transform: scale(1.05);
+}
+
+.hero__mockup {
+    margin-top: 40px;
+    width: 800px;
+    max-width: 100%;
+    max-height: 35vh;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+.hero__scroll-indicator {
+    position: relative;
+    bottom: 0px;
+    color: #ffffff;
+    font-size: 1.5rem;
+    z-index: 10;
+    animation: bounce 1s infinite;
+    text-decoration: none;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(8px); }
+}
+
+.carousel {
+    min-height: 100vh;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 24px;
+    background-image:
+        linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(0,0,0,0.75)),
+        url("../../assets/img/carousel-background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.carousel__text {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.carousel__slide-title {
+    font-size: clamp(1.875rem, 4vw, 2.25rem);
+    font-weight: bold;
+}
+
+.carousel__slide-text {
+    margin-top: 12px;
+    color: #ffffff;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.carousel__image-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    max-width: 1000px;
+    width: 100%;
+}
+
+.carousel__image-wrap {
+    flex: 1;
+    overflow: hidden;
+    border-radius: 16px;
+    position: relative;
+}
+
+.carousel__image {
+    width: 100%;
+    display: block;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.carousel__btn {
+    flex-shrink: 0;
+    padding: 10px 20px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.carousel__btn:hover {
+    transform: scale(1.04);
+    opacity: 0.9;
+}
+
+.carousel__dots {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+    align-items: center;
+}
+
+.carousel__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    padding: 0;
+}
+
+.carousel__dot:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.carousel__dot--active {
+    background-color: white;
+    transform: scale(1.3);
+}
+
+.carousel__cta {
+    margin-top: 40px;
+    padding: 14px 36px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.carousel__cta:hover {
+    transform: scale(1.04);
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .carousel__slide-text {
+        font-weight: bold;
+    }
+
+    .carousel__btn {
+        display: none;
+    }
+}
+
+@media (max-height: 700px) {
+    .hero__content {   
+        transform: translateY(-40px);
+    }
+}
+
+@media (max-height: 820px) {
+    .carousel {
+        padding: 40px 24px;
+    }
+
+    .carousel__slide-title {
+        font-size: clamp(1.5rem, 3vw, 1.8rem);
+    }
+
+    .carousel__slide-text {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    .carousel__text {
+        margin-bottom: 16px;
+    }
+
+    .carousel__dots {
+        margin-top: 16px;
+    }
+
+    .carousel__cta {
+        margin-top: 24px;
+        padding: 10px 28px;
+        font-size: 1rem;
+    }
+
+    .carousel__image-wrap {
+        max-width: 85%;
+        margin: 0 auto;
+    }
+
+    .carousel__btn {
+        display: none;
+    }
+}
+
+@media (min-height: 1100px) {
+    .hero {    
+        max-height: 1300px;
+    }
+}
+
+@media (max-height: 720px) {
+    .carousel {
+        padding: 20px 16px;
+        min-height: auto;
+    }
+
+    .carousel__slide-title {
+        font-size: 1.4rem;
+    }
+
+    .carousel__slide-text {
+        font-size: 0.85rem;
+        line-height: 1.3;
+    }
+
+    .carousel__text {
+        margin-bottom: 12px;
+    }
+
+    .carousel__dots {
+        margin-top: 12px;
+    }
+
+    .carousel__image {
+        max-height: 400px;
+        object-fit: contain;
+    }
+
+    .carousel__cta {
+        margin-top: 16px;
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+}
