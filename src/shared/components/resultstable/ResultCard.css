@@ -5,24 +5,30 @@
 
 .result-card-container {
     background: #ffffff;
-    border: 1px solid #ddd;
+    border: 1px solid #e5e7eb;
     color: #333;
-    border-radius: 10px;
+    border-radius: 14px;
     overflow: hidden;
     min-height: 90px;
     flex: 1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
+.result-card-container:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
 
 .result-card-header {
     display: flex;
     justify-content: space-between;
     font-size: 13px;
     padding: 8px 16px;
-    opacity: 0.9;
-    background: #f8f8f8;
-    border-bottom: 1px solid #ddd;
-    color: #333;
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+    color: #6b7280;
+    letter-spacing: 0.01em;
 }
 
 .trade-dates {
@@ -30,21 +36,18 @@
     gap: 32px;
 }
 
-
 .date-block {
     display: flex;
     gap: 6px;
     white-space: nowrap;
 }
 
-
 .date {
-    color: #555;
+    color: #9ca3af; 
 }
 
-
 .price {
-    color: #000;
+    color: #111827; 
     font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
@@ -52,8 +55,8 @@
 }
 
 .user {
-    color: #000;
-    font-weight: 600;
+    color: #6b7280;
+    font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -68,6 +71,10 @@
     background: #ffffff;
 }
 
+.symbol-column {
+    min-width: 167px;
+}
+
 .symbol-column .symbol {
     font-size: 28px;
     font-weight: 800;
@@ -75,6 +82,8 @@
     line-height: 1;
     display: inline-flex;
     align-items: center;
+    letter-spacing: -0.5px;
+    color: #111827;
 }
 
 .profit {
@@ -84,17 +93,9 @@
     letter-spacing: -0.2px;
 }
 
-.profit.positive {
-    color: #15803d;
-}
-
-.profit.negative {
-    color: #b91c1c;
-}
-
-.profit.neutral {
-    color: #555;
-}
+.profit.neutral { color: #555; }
+.profit.positive { color: #16a34a; }
+.profit.negative { color: #dc2626; }
 
 .metric-column {
     display: flex;
@@ -103,22 +104,23 @@
 }
 
 .metric-label {
+    line-height: 1.1;
+    color: #555;
     font-size: 15px;
     font-weight: 500;
-    color: #555;
-    line-height: 1.1;
+    letter-spacing: 0.05em;
 }
 
 .metric-column span:not(.metric-label):not(.volume-value) {
-    font-size: 23px;
-    font-weight: 600;
+    font-size: 22px;
+    font-weight: 700;
     line-height: 1;
     font-variant-numeric: tabular-nums;
 }
 
 .volume-value {
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 600;
     color: #444;
     white-space: nowrap;
     overflow: hidden;
@@ -189,7 +191,17 @@
     }
 }
 
-@media (max-width: 567px) {
+@media (max-width: 800px) {
+    .symbol-column {
+        min-width: 0px;
+    }
+}
+
+@media (max-width: 800px) {
+    .symbol-column {
+        min-width: 0px;
+    }
+    
     .trade-dates {
         gap: 16px;
     }

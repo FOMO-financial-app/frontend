@@ -9,7 +9,7 @@ import "./ResultCard.css"
 
 export const ResultCard = ({ item, editable, onEdit, onDelete }) => {
     const width = useWindowWidth();
-    const isMobile = width < 567;
+    const isMobile = width <= 800;
     const [ drawerOpen, setDrawerOpen ] = useState(false);
 
     const {
