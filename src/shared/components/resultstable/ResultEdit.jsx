@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { isoToDateInput, deleteSpaces, validateDateResult, StockSearcher, ConfirmationDrawer } from "../../";
+import { isoToDateInput, deleteSpaces, validateDateResult, StockSearcher, ConfirmationDrawer, validatePrecision } from "../../";
 import { resultEditDTO } from "../../../features/profile/";
 import { resultCreateDTO } from "../../../features/board/";
 import deleteicon from "../../../assets/img/del-icon.svg"
@@ -20,6 +20,9 @@ export const ResultEdit = ({ item, onClose, editResult, deleteResult, createResu
     const [ dateError, setDateError ] = useState(false);
     const [ priceError, setPriceError ] = useState(false);
     const [ stockError, setStockError ] = useState(false);
+    const minPrice = 0
+    const maxPrice = 999999.9999
+    const maxVolume = 100000
 
     const {
         id,
@@ -62,12 +65,12 @@ export const ResultEdit = ({ item, onClose, editResult, deleteResult, createResu
         setDateError(false);
         let hasError = false;
 
-        if (entryPrice <= 0 || exitPrice <= 0) {
+        if (validatePrecision(entryPrice, minPrice, maxPrice) == false || validatePrecision(exitPrice, minPrice, maxPrice) == false) {
             setPriceError(true);
             hasError = true;
         }
 
-        if (numberOfStocks <= 0) {
+        if (numberOfStocks <= 0 || numberOfStocks > maxVolume) {
             setStockError(true);
             hasError = true;
         } 
@@ -93,7 +96,8 @@ export const ResultEdit = ({ item, onClose, editResult, deleteResult, createResu
     };
     
     const editAction = async () => {
-        if (id < 0 || entryPrice <= 0 || exitPrice <= 0 || numberOfStocks <= 0) return;
+        if (id < 0 || !validatePrecision(entryPrice, minPrice, maxPrice) || !validatePrecision(exitPrice, minPrice, maxPrice)
+             || numberOfStocks <= 0 || numberOfStocks > maxVolume) return;
 
         const symbolInput = deleteSpaces(newSymbol);
         if (!symbolInput || symbolInput.length === 0) {
@@ -202,7 +206,7 @@ export const ResultEdit = ({ item, onClose, editResult, deleteResult, createResu
                         )}
                         {priceError && (
                             <span className="re-error-text">
-                                Ambos precios deben ser mayores a 0.
+                                Ambos precios deben estar entre el rango de {minPrice} y {maxPrice}.
                             </span>
                         )}
                     </div>
@@ -232,7 +236,7 @@ export const ResultEdit = ({ item, onClose, editResult, deleteResult, createResu
 
                             {stockError && (
                                 <span className="re-error-text">
-                                    El volumne de acciones debe ser mayor a 0.
+                                    El volumen de acciones debe estar entre el rango de 0 y {maxVolume}.
                                 </span>
                             )}
                         </div>

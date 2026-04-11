@@ -170,6 +170,7 @@
 .re-error-text {
     color: #ef5350;
     font-size: 0.75rem;
+    font-weight: bold;
     line-height: 1.2;
     display: block;
 }
