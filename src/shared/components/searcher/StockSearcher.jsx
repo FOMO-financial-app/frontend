@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react"
 import { useNavigate } from 'react-router-dom';
-import { useDebounce } from "../../";
+import { logger, useDebounce } from "../../";
 import { stockService } from "../../../features"
 import { VirtualizedStockList } from "./VirtualizedStockList";
 import { SearchInput } from "./SearchInput"
@@ -101,7 +101,7 @@ export const StockSearcher = ({ searchPath, initialValue, onSelect }) => {
             .then(result => setqResult(result.data))
             .catch(error => {
                 setqResult([]);
-                console.error("Error fetching stocks:", error);
+                logger.error("Error fetching stocks:", error);
             });
 
     }, [debouncedQuery]);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { isoToDateInput, deleteSpaces, validateDateResult, StockSearcher, ConfirmationDrawer, validatePrecision } from "../../";
+import { isoToDateInput, deleteSpaces, validateDateResult, StockSearcher, ConfirmationDrawer, validatePrecision, logger } from "../../";
 import { resultEditDTO } from "../../../features/profile/";
 import { resultCreateDTO } from "../../../features/board/";
 import deleteicon from "../../../assets/img/del-icon.svg"
@@ -52,7 +52,7 @@ export const ResultEdit = ({ item, onClose, editResult, deleteResult, createResu
                 await deleteAction();
             }
         } catch (error) {
-            console.error("Confirmation error:", error);
+            logger.error("Confirmation error:", error);
         } finally {
             setDrawerOpen(false);
             onClose();

@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { UserCard, AlertCard } from "../components/";
 import { userService } from "../services";
 import { resultService } from "../../board/services"
-import { ResultsList, PaginationControls, mapTradeResults } from "../../../shared";
+import { ResultsList, PaginationControls, mapTradeResults, logger } from "../../../shared";
 import "./UserProfilePage.css"
 
 export const UserProfilePage = () => {    
@@ -46,7 +46,7 @@ export const UserProfilePage = () => {
             .catch(error => {
                 setUserDbName(null);
                 setAlerts(null);
-                console.error("Error fetching user details:", error);
+                logger.error("Error fetching user details:", error);
             })
             .finally(() => {
                 setUserDataLoading(false);
@@ -63,7 +63,7 @@ export const UserProfilePage = () => {
             })
             .catch(error => {
                 setResultsList([]);
-                console.error("Error fetching results:", error)
+                logger.error("Error fetching results:", error)
             })
             .finally(() => {
                 setResultsLoading(false);

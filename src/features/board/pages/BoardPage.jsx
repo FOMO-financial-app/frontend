@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { resultService } from "../services"
-import { PaginationControls, ResultsList, mapTradeResults, ResultEdit } from "../../../shared";
+import { PaginationControls, ResultsList, mapTradeResults, ResultEdit, logger } from "../../../shared";
 import "./BoardPage.css"
 
 export const BoardPage = () => {
@@ -41,7 +41,7 @@ export const BoardPage = () => {
             })
             .catch(error => {
                 setResultsList([]);
-                console.error("Error fetching results:", error)
+                logger.error("Error fetching results:", error)
             })
             .finally(() => {
                 setIsLoading(false);

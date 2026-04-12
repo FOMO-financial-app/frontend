@@ -4,7 +4,7 @@ import checkicon from "../../../assets/img/check-icon.svg"
 import deleteicon from "../../../assets/img/del-icon.svg"
 import editicon from "../../../assets/img/edit-icon.svg"
 import { useState } from "react"
-import { ConfirmationDrawer, normalizeString, validateString } from "../../../shared/"
+import { ConfirmationDrawer, normalizeString, validateString, logger } from "../../../shared/"
 import { userEditDTO } from "../models/"
 import "./UserCard.css"
 
@@ -53,7 +53,7 @@ export const UserCard = ({ profileAvatar, userName, email, editUser, deleteUser,
                 await deleteAction();
             }
         } catch (error) {
-            console.error("Error en la operación:", error);
+            logger.error("Operation error:", error);
         } finally {
             setIsEditing(false);
             setDrawerOpen(false);
