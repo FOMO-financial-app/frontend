@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import "./ConfirmationDrawer.css";
+import { logger } from "../../utils/logger";
 
 export const ConfirmationDrawer = ({ open, onClose, title, message, handleConfirm, type }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -10,7 +11,7 @@ export const ConfirmationDrawer = ({ open, onClose, title, message, handleConfir
         try {
             await handleConfirm();
         } catch (error) {
-            console.error("Error en la confirmación:", error);
+            logger.error("Confirmation error:", error);
         } finally {
             setIsLoading(false); 
         }

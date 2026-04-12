@@ -1,3 +1,4 @@
+import { logger } from "../../../shared";
 import { mapBands } from "../models";
 
 export const fetchBandsData = (serviceMethod, symbol, period, secondParam, message, setBands) => {
@@ -9,6 +10,6 @@ export const fetchBandsData = (serviceMethod, symbol, period, secondParam, messa
             })
             .catch(error => {
                 setBands([]);
-        console.error({message}, error);
+        logger.error({message}, error);
     });
 };

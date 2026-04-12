@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { stockService } from "../services";
 import { StockTable } from "../components";
-import { PaginationControls } from "../../../shared";
+import { PaginationControls, logger } from "../../../shared";
 import TradingViewWidget from "../components/TradingViewWidget";
 import "./HomePage.css"
 
@@ -25,7 +25,7 @@ export const HomePage = () => {
             })
             .catch(error => {
                 setList([]);
-                console.error("Error fetching stocks:", error)
+                logger.error("Error fetching stocks:", error)
             })
             .finally(() => {
                 setIsLoading(false);

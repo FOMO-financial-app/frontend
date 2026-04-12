@@ -3,7 +3,7 @@ import { stockService, fetchBandsData, fetchIndicatorData, rsiCheck, bandsCheck 
 import { mapToCandleStick, mapMainChannel, mapStochasticD, mapStochasticK } from "../models";
 import { MainChart, ChartOptions, RsiChart, StochasticChart, ChartInfoDrawer, ChartOptionsDrawer } from "../components";
 import { useSearchParams } from "react-router-dom";
-import { useWindowWidth } from "../../../shared";
+import { useWindowWidth, logger } from "../../../shared";
 import "./StocksDetailsPage.css"
 
 export const StockDetailsPage = () => {
@@ -51,7 +51,7 @@ export const StockDetailsPage = () => {
             .catch(error => {
                 setTimeSeries([]);
                 setMainChannel([]);
-                console.error("Error fetching stock details:", error);
+                logger.error("Error fetching stock details:", error);
             });
     };
 
@@ -92,7 +92,7 @@ export const StockDetailsPage = () => {
             .catch(error => {
                 setStochasticK([]);
                 setStochasticD([]);
-                console.error("Error fetching Stochastic details:", error);
+                logger.error("Error fetching Stochastic details:", error);
             });
     };
 

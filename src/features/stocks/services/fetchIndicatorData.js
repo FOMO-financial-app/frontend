@@ -1,3 +1,4 @@
+import { logger } from "../../../shared/utils/logger";
 import { mapSingleValue } from "../models";
 
 export const fetchIndicatorData = (serviceMethod, symbol, period, message, setIndicator) => {
@@ -9,6 +10,6 @@ export const fetchIndicatorData = (serviceMethod, symbol, period, message, setIn
             })
             .catch(error => {
                 setIndicator([]);
-        console.error({message}, error);
+        logger.error({message}, error);
     });
 };

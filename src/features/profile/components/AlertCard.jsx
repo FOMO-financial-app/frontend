@@ -2,7 +2,7 @@ import cancelicon from "../../../assets/img/cancel-icon.svg"
 import checkicon from "../../../assets/img/check-icon.svg"
 import editicon from "../../../assets/img/edit-icon.svg"
 import { useState } from "react"
-import { ConfirmationDrawer } from "../../../shared/"
+import { ConfirmationDrawer, logger } from "../../../shared/"
 import { userEditDTO } from "../models/"
 import "./AlertCard.css"
 
@@ -50,7 +50,7 @@ export const AlertCard = ({ alerts, onCheck, editUser, isLoading }) => {
         try {
             await editAction();
         } catch (error) {
-            console.error("Error en la operación:", error);
+            logger.error("Operation error:", error);
         } finally {
             setIsEditing(false);
             setDrawerOpen(false);
