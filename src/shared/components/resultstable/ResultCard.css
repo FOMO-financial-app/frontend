@@ -195,12 +195,6 @@
     .symbol-column {
         min-width: 0px;
     }
-}
-
-@media (max-width: 800px) {
-    .symbol-column {
-        min-width: 0px;
-    }
     
     .trade-dates {
         gap: 16px;
@@ -234,5 +228,45 @@
 
     .metric-label {
         font-size: 13px;
+    }
+}
+
+@media (max-width: 450px) {
+    .price {
+        max-width: 9ch;
+    }
+}
+
+@media (max-width: 400px) {
+    .result-card-header {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 390px) {
+    .profit {
+        max-width: 9ch;
+    }
+}
+
+@media (max-width: 361px) {
+    .result-card-body {
+        grid-template-columns: 1fr; 
+        gap: 12px;
+        padding: 15px;
+    }
+
+    .symbol-column {
+        min-width: 0; 
+        margin-bottom: 4px;
+    }
+
+    .metric-column {
+        display: flex; 
+        justify-content: center;
+    }
+
+    .profit {
+        max-width: 20ch;
     }
 }
